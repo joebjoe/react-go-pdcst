@@ -1,0 +1,14 @@
+section.view {
+    padding: 0 16px 16px;
+    border: 1px solid;
+    border-radius: 16px;
+    text-align: justify;
+}
+
+section.view > h2 {
+    text-align: center;
+}
+
+section.view > div {
+    text-align: justify;
+}

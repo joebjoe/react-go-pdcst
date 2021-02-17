@@ -1,38 +1,91 @@
-.App {
+* {
+  font-family: 'Spartan', sans-serif;
+}
+
+header {
+  position: relative;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+header h1 {
+  min-height: 48px;
+  line-height: 48px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+header h1 a {
+  text-decoration: none;
+  color: unset;
+}
+
+main {
+  margin: 0 auto;
+  width: 75vw;
+  max-width: 1000px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1em;
+  text-align: center;
+  background-color: white;
+}
+
+header .nav-btn {
+  display: none;
+}
+
+header nav {
+  margin-bottom: 16px;
+}
+
+@media screen and (max-width: 799px) {
+  header .nav-btn {
+    position: absolute;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 8px;
+    height: 32px;
+    width: 32px;
+    top: 0;
+    right: 16px;
+    cursor: pointer;
+  }
+
+  header .hamburger > div {
+    height: 1px;
+    background-color: black;
+  }
+
+  header nav {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    right: 0;
+    height: 0;
+    overflow: hidden;
+    background-color: white;
+    -webkit-transition: height 0.5s ease, padding 0.5s ease, box-shadow 0.5s ease;
+    -moz-transition: height 0.5s ease, padding 0.5s ease, box-shadow 0.5s ease;
+    -o-transition: height 0.5s ease, padding 0.5s ease, box-shadow 0.5s ease;
+    transition: height 0.5s ease, padding 0.5s ease, box-shadow 0.5s ease;
+  }
+  
+  header nav.active {
+    display: unset;
+    padding: 16px 0;
+    height: 48px;
+    line-height: 48px;
+    box-shadow: 0 3px 3px rgba(0,0,0,0.5);
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media screen and (min-width: 800px) {
+  header nav {
+    padding: 16px 0;
   }
 }
