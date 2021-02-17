@@ -18,13 +18,15 @@ header h1 a {
 }
 
 main {
-  margin: 0 auto;
+  margin: 0 auto calc(30px + 3em);
   width: 75vw;
   max-width: 1000px;
 }
 
 footer {
   position: fixed;
+  height: 30px;
+  line-height: 30px;
   bottom: 0;
   left: 0;
   right: 0;
