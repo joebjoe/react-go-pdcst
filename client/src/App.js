@@ -36,6 +36,7 @@ class App extends Component {
           {!this.state.nav_active ? <GrMenu class="nav-btn hamburger" onClick={this.toggleNav}/> : <GrClose class="nav-btn close" onClick={this.toggleNav} />}
           <Nav 
             class={this.state.nav_active ? 'active' : ''}
+            onClick={this.toggleNav}
             routes={[
               navRoute("Explore", ""),
               navRoute("Subscriptions"),

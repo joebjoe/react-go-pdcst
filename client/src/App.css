@@ -69,10 +69,10 @@ header nav {
     height: 0;
     overflow: hidden;
     background-color: white;
-    -webkit-transition: height 0.5s ease, padding 0.5s ease, box-shadow 0.5s ease;
-    -moz-transition: height 0.5s ease, padding 0.5s ease, box-shadow 0.5s ease;
-    -o-transition: height 0.5s ease, padding 0.5s ease, box-shadow 0.5s ease;
-    transition: height 0.5s ease, padding 0.5s ease, box-shadow 0.5s ease;
+    -webkit-transition: height 0.5s ease, padding 0.5s ease, box-shadow 0.75s ease;
+    -moz-transition: height 0.5s ease, padding 0.5s ease, box-shadow 0.75s ease;
+    -o-transition: height 0.5s ease, padding 0.5s ease, box-shadow 0.75s ease;
+    transition: height 0.5s ease, padding 0.5s ease, box-shadow 0.75s ease;
   }
   
   header nav.active {
