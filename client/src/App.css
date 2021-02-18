@@ -19,7 +19,7 @@ header h1 a {
 
 main {
   margin: 0 auto calc(30px + 3em);
-  width: 75vw;
+  width: calc(100vw - 48px);
   max-width: 1000px;
 }
 
@@ -46,21 +46,14 @@ header nav {
 @media screen and (max-width: 799px) {
   header .nav-btn {
     position: absolute;
+    display: block;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
     padding: 8px;
     height: 32px;
     width: 32px;
     top: 0;
     right: 16px;
     cursor: pointer;
-  }
-
-  header .hamburger > div {
-    height: 1px;
-    background-color: black;
   }
 
   header nav {
@@ -72,10 +65,18 @@ header nav {
     height: 0;
     overflow: hidden;
     background-color: white;
-    -webkit-transition: height 0.5s ease, padding 0.5s ease, box-shadow 0.75s ease;
-    -moz-transition: height 0.5s ease, padding 0.5s ease, box-shadow 0.75s ease;
-    -o-transition: height 0.5s ease, padding 0.5s ease, box-shadow 0.75s ease;
-    transition: height 0.5s ease, padding 0.5s ease, box-shadow 0.75s ease;
+    -webkit-transition-property: height, padding, box-shadow;
+    -moz-transition-property: height, padding, box-shadow;
+    -o-transition-property: height, padding, box-shadow;
+    transition-property: height, padding, box-shadow;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-out;
+    -moz-transition-duration: 0.5s;
+    -moz-transition-timing-function: ease-out;
+    -o-transition-duration: 0.5s;
+    -o-transition-timing-function: ease-out;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out;
   }
   
   header nav.active {

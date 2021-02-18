@@ -3,7 +3,7 @@ import Divider from '@material-ui/core/Divider';
 
 export default function(props) {
     return (
-        <section class={"view view--" + props.class}>
+        <section className={"view view--" + props.className}>
             <h2>{props.title}.</h2>
             <Divider />
             {props.children}

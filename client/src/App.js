@@ -21,7 +21,15 @@ class App extends Component {
     this.state = {
       nav_active: false,
     };
-    this.toggleNav = () => {
+    
+    //needed for links that should only ever close the nav
+    this.closeNav = () => {
+      this.setState({
+        nav_active: false,
+      })
+    }
+    
+    this.toggleNav =  () => {
       this.setState({
         nav_active: !this.state.nav_active,
       })
@@ -29,16 +37,20 @@ class App extends Component {
   }
 
   render() {
+    const NavBtn = this.state.nav_active ? GrClose : GrMenu;
     return (
       <Router>
         <header>
           <h1>
-            <Link to="/">PDCST.</Link>
+            <Link
+              to="/"
+              onClick={this.closeNav}
+            >PDCST.</Link>
           </h1>
-          {!this.state.nav_active ? <GrMenu class="nav-btn hamburger" onClick={this.toggleNav}/> : <GrClose class="nav-btn close" onClick={this.toggleNav} />}
+          <NavBtn className="nav-btn" onClick={this.toggleNav}/>
           <Nav 
-            class={this.state.nav_active ? 'active' : ''}
-            onClick={this.toggleNav}
+            className={this.state.nav_active ? 'active' : ''}
+            onClick={this.closeNav}
             routes={[
               navRoute("Explore", ""),
               navRoute("Library"),

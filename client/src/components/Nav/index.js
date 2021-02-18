@@ -1,5 +1,5 @@
 import './index.css';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export function navRoute(name, path) {
     return {
@@ -10,17 +10,17 @@ export function navRoute(name, path) {
 
 export default function(props) {
     return (
-        <nav class={props.class}>
+        <nav className={props.className}>
             <ul>
                 {props.routes.map(route => (
                     <li key={route.name}>
-                        <Link
+                        <NavLink
                             exact
                             to={route.path}
                             onClick={props.onClick}
                         >
                             {route.name}
-                        </Link>
+                        </NavLink>
                     </li>
                 ))}
             </ul>
