@@ -1,3 +1,13 @@
+nav ul, nav li {
+    height: 48px;
+}
+
+nav a {
+    display: inline-block;
+    height: 48px;
+    line-height: 48px;
+}
+
 nav ul {
     width: 75vw;
     max-width: 1000px;

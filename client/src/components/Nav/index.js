@@ -14,7 +14,13 @@ export default function(props) {
             <ul>
                 {props.routes.map(route => (
                     <li key={route.name}>
-                        <Link to={route.path} onClick={props.onClick}>{route.name}</Link>
+                        <Link
+                            exact
+                            to={route.path}
+                            onClick={props.onClick}
+                        >
+                            {route.name}
+                        </Link>
                     </li>
                 ))}
             </ul>
