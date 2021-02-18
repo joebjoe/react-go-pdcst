@@ -1,5 +1,5 @@
 import './index.css';
 
 export default function() {
-    return <h2>Hello World</h2>
+  return <h2>Hello World</h2>
 }
