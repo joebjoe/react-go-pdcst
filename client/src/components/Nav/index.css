@@ -9,7 +9,7 @@ nav ul {
 }
 
 nav a {
-    display: inline-flex;
+    display: flex;
     height: 100%;
     padding: 0 2em;
     text-transform: uppercase;
