@@ -1,14 +1,15 @@
 section.view {
-    padding: 0 16px 16px;
-    border: 1px solid;
-    border-radius: 16px;
+    padding-bottom: 16px;
     text-align: justify;
 }
 
 section.view > h2 {
+    font-weight: bold;
     text-align: center;
 }
 
-section.view > div {
-    text-align: justify;
+@media screen and (max-width: 799px) {
+    section.view {
+        padding: 0 16px 16px;
+    }
 }

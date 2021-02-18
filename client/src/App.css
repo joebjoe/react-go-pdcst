@@ -1,26 +1,44 @@
 * {
   font-family: 'Spartan', sans-serif;
+  line-height: 1.6;
+  font-weight: 300;
+  color: #3a3a3a;
+}
+
+svg path {
+  stroke: #3a3a3a;
+}
+
+#root {
+  width: 100vw;
+  margin: 0 auto;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: initial;
+  font-weight: 400;
+}
+
+a:not(header a) {
+  border-bottom: 1px dashed;
 }
 
 header {
   position: relative;
-  text-align: center;
-}
-
-header h1 {
-  height: 48px;
-  line-height: 48px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid;
 }
 
 header h1 a {
-  text-decoration: none;
-  color: unset;
+  font-weight: 300;
 }
 
 main {
   margin: 0 auto calc(30px + 3em);
-  width: calc(100vw - 48px);
-  max-width: 1000px;
 }
 
 footer {
@@ -35,61 +53,78 @@ footer {
   background-color: white;
 }
 
+footer.scrollbox{
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
 header .nav-btn {
   display: none;
 }
 
-header nav {
-  margin-bottom: 16px;
+header > nav {
+  height: 100%
 }
 
 @media screen and (max-width: 799px) {
+  header {
+    padding: 0 16px;
+  }
+
   header .nav-btn {
-    position: absolute;
     display: block;
-    text-align: center;
     padding: 8px;
+    padding-right: 0;
     height: 32px;
     width: 32px;
-    top: 0;
-    right: 16px;
+    margin-left: auto;
     cursor: pointer;
   }
 
   header nav {
     position: absolute;
-    top: 100%;
-    padding: 0;
+    top: calc(100% + 1px);
     left: 0;
     right: 0;
     height: 0;
     overflow: hidden;
     background-color: white;
     -webkit-transition-property: height, padding, box-shadow;
-    -moz-transition-property: height, padding, box-shadow;
-    -o-transition-property: height, padding, box-shadow;
-    transition-property: height, padding, box-shadow;
-    -webkit-transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s, 0.5s, 0.5s;
     -webkit-transition-timing-function: ease-out;
-    -moz-transition-duration: 0.5s;
+    -webkit-transition-delay: 0.25s, 0.25s, 0.5s;
+    -moz-transition-property: height, padding, box-shadow;
+    -moz-transition-duration: 0.5s, 0.5s, 0.5s;
     -moz-transition-timing-function: ease-out;
-    -o-transition-duration: 0.5s;
+    -moz-transition-delay: 0.25s, 0.25s, 0.5s;
+    -o-transition-property: height, padding, box-shadow;
+    -o-transition-duration: 0.5s, 0.5s, 0.5s;
     -o-transition-timing-function: ease-out;
-    transition-duration: 0.5s;
+    -o-transition-delay: 0.25s, 0.25s, 0.5s;
+    transition-property: height, padding, box-shadow;
+    transition-duration: 0.5s, 0.5s, 0.5s;
     transition-timing-function: ease-out;
+    transition-delay: 0.25s, 0.25s, 0.5s;
   }
   
   header nav.active {
     display: unset;
-    padding: 16px 0;
-    height: 48px;
-    line-height: 48px;
-    box-shadow: 0 3px 3px rgba(0,0,0,0.5);
+    height: 56px;
+    line-height: 56px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -webkit-transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    transition-delay: 0s;
   }
 }
 
 @media screen and (min-width: 800px) {
+  #root {
+    width: calc(100vw - 48px);
+    max-width: 1000px;
+  }
+
   header nav {
-    padding: 16px 0;
+    margin-left: auto;
   }
 }

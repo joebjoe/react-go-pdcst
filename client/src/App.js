@@ -14,26 +14,39 @@ import Nav, { navRoute } from './components/Nav';
 import React, { Component } from "react";
 import { GrMenu, GrClose } from "react-icons/gr";
 
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       nav_active: false,
+      is_scrollable: false,
     };
     
     //needed for links that should only ever close the nav
     this.closeNav = () => {
-      this.setState({
-        nav_active: false,
-      })
+      this.setState(() => {
+        return { nav_active: false }
+      }, this.handleScrollable);
     }
     
-    this.toggleNav =  () => {
-      this.setState({
-        nav_active: !this.state.nav_active,
+    this.toggleNav = () => {
+      this.setState(state => {
+        return { nav_active: !state.nav_active }
+      }, this.handleScrollable);
+    }
+
+    this.handleScrollable = () => {
+      const elem = document.scrollingElement,
+            scroll_amt = elem.scrollHeight - elem.scrollTop - elem.clientHeight;
+      this.setState(() => {
+        return { is_scrollable: scroll_amt > 0 }
       })
     }
+  }
+
+  componentDidMount() {
+    this.handleScrollable();
+    window.addEventListener('scroll', this.handleScrollable);
   }
 
   render() {
@@ -77,7 +90,11 @@ class App extends Component {
             </Route>
           </Switch>
         </main>
-        <footer><small>View the {"</>"} on <a href="https://github.com/joebjoe/podcast-app" target="_blank">Github</a></small></footer>
+        <footer
+          className={this.state.is_scrollable ? 'scrollbox' : ''}
+        >
+          <small>View the {"</>"} on <a href="https://github.com/joebjoe/podcast-app" target="_blank">Github</a></small>
+        </footer>
       </Router>
     )
   }

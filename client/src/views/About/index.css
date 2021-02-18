@@ -1,7 +1,3 @@
-section.view--about p {
-    line-height: 1.6;
-}
-
 section.view--about .section-label {
    border-bottom: 2px dashed;
    font-weight: bold;

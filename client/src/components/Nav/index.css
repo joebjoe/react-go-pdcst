@@ -1,32 +1,41 @@
-nav ul, nav li {
-    height: 48px;
-}
-
-nav a {
-    display: inline-block;
-    height: 48px;
-    line-height: 48px;
-}
-
 nav ul {
-    width: 75vw;
-    max-width: 1000px;
+    height: 100%;
     margin: 0 auto;
     padding: 0;
     list-style: none;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
+}
+
+nav a {
+    display: inline-flex;
+    height: 100%;
+    padding: 0 2em;
+    text-transform: uppercase;
+    align-items: center;
+    font-weight: 300;
+}
+
+nav a:hover {
+    background-color: #888888;
+    color: white;
+    font-weight: 400;
+}
+
+nav a.active {
+    background-color: #3a3a3a;
+    color: white;
+    font-weight: 700;
 }
 
 @media screen and (max-width: 799px) {
     nav ul {
+        width: 75vw;
         justify-content: space-around;
     }
-}
 
-@media screen and (max-width: 399px) {
-    nav ul {
-        justify-content: space-between;
+    nav a {
+        padding: 0 1em;
     }
 }
