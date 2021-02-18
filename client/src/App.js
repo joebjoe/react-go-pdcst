@@ -6,8 +6,10 @@ import {
   Link
 } from "react-router-dom";
 import Explore from './views/Explore';
-import Subscriptions from './views/Subscriptions';
+import Library from './views/Library';
 import About from './views/About';
+import Detail from './views/Detail';
+import Episode from './views/Episode';
 import Nav, { navRoute } from './components/Nav';
 import React, { Component } from "react";
 import { GrMenu, GrClose } from "react-icons/gr";
@@ -39,18 +41,21 @@ class App extends Component {
             onClick={this.toggleNav}
             routes={[
               navRoute("Explore", ""),
-              navRoute("Subscriptions"),
+              navRoute("Library"),
               navRoute("About"),
             ]}
           />
         </header>
         <main>
           <Switch>
-            {/* <Route path="/detail/:id">
+            <Route path="/episode/:id">
+              <Episode />
+            </Route>
+            <Route path="/detail/:id">
               <Detail />
-            </Route> */}
-            <Route path="/subscriptions">
-              <Subscriptions />
+            </Route>
+            <Route path="/library">
+              <Library />
             </Route>
             <Route path="/about">
               <About />

@@ -1,5 +1,5 @@
 import './index.css';
 
 export default function() {
-    return <h2>Subscriptions</h2>
+    return <h2>Library</h2>
 }
