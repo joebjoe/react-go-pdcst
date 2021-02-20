@@ -1,5 +1,5 @@
 build:
-	@go build -ldflags "-w" -a -o ./.bin/server ./cmd
+	@go build -ldflags "-w" -a -o ./.bin/server .
 
 run:: build
 	@.bin/server
