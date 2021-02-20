@@ -17,6 +17,7 @@ var handlers = []HandleFunc{
 	handlePing,
 	handle("best_podcasts"),
 	handle("podcasts/:id"),
+	handle("typeahead"),
 }
 
 // Server for serving fromend SPA and for acting as middleware between client and the third-party api
