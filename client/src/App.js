@@ -20,7 +20,6 @@ class App extends Component {
     this.state = {
       nav_active: false,
       is_scrollable: false,
-      scroll_text: '',
     };
     
     //needed for links that should only ever close the nav
@@ -39,10 +38,8 @@ class App extends Component {
     this.handleScrollable = () => {
       const {innerHeight, pageYOffset} = window, { scrollHeight } = document.documentElement;
       let scroll_amt = scrollHeight - pageYOffset - innerHeight
-      console.log(window)
-      let scroll_text = `scroll_amt: ${scroll_amt} = {scrollHeight(${scrollHeight}) - scrollTop(${pageYOffset}) - clientHeight(${innerHeight})}`
       this.setState(() => {
-        return { is_scrollable: scroll_amt > 0, scroll_text: scroll_text }
+        return { is_scrollable: scroll_amt > 0 }
       })
     }
   }
@@ -96,8 +93,7 @@ class App extends Component {
         <footer
           className={this.state.is_scrollable ? 'scrollbox' : ''}
         >
-          <small>{this.state.scroll_text}</small>
-          {/* <small>View the {"</>"} on <a href="https://github.com/joebjoe/podcast-app" target="_blank">Github</a></small> */}
+          <small>View the {"</>"} on <a href="https://github.com/joebjoe/podcast-app" target="_blank">Github</a></small>
         </footer>
       </Router>
     )
