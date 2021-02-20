@@ -40,7 +40,9 @@ class App extends Component {
       const elem = document.scrollingElement,
             scroll_amt = elem.scrollHeight - elem.scrollTop - elem.clientHeight;
 
-      let scroll_text = `scroll_amt: ${scroll_amt} = {scrollHeight(${elem.scrollHeight}) - scrollTop(${elem.scrollTop}) - clientHeight(${elem.clientHeight})}`
+          let max = Math.max(elem.clientHeight, elem.scrollHeight, elem.offsetHeight);
+
+      let scroll_text = `max:  ${max},  scroll_amt: ${scroll_amt} = {scrollHeight(${elem.scrollHeight}) - scrollTop(${elem.scrollTop}) - clientHeight(${elem.clientHeight})}`
       this.setState(() => {
         return { is_scrollable: scroll_amt > 0, scroll_text: scroll_text }
       })
