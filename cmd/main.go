@@ -6,6 +6,8 @@ import (
 )
 
 func main() {
+	parseConfig()
+
 	svc := service.New()
 	srvr := server.New(svc)
 	srvr.Start()
