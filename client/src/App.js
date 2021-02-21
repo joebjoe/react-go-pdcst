@@ -93,7 +93,7 @@ class App extends Component {
         <footer
           className={this.state.is_scrollable ? 'scrollbox' : ''}
         >
-          <small>View the {"</>"} on <a href="https://github.com/joebjoe/podcast-app" target="_blank">Github</a></small>
+          <small>View the {"</>"} on <a href="https://github.com/joebjoe/react-go-pdcst" target="_blank">Github</a></small>
         </footer>
       </Router>
     )
