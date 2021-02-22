@@ -73,19 +73,19 @@ class App extends Component {
         </header>
         <main>
           <Switch>
-            <Route path="/episode/:id">
+            <Route exact path="/episode/:id">
               <Episode />
             </Route>
-            <Route path="/detail/:id">
+            <Route exact path="/detail/:id">
               <Detail />
             </Route>
-            <Route path="/library">
+            <Route exact path="/library">
               <Library />
             </Route>
-            <Route path="/about">
+            <Route exact path="/about">
               <About />
             </Route>
-            <Route path="/">
+            <Route exact path="/">
               <Explore />
             </Route>
           </Switch>
