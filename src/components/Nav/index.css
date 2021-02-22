@@ -1,0 +1,41 @@
+nav ul {
+  height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+nav a {
+  display: flex;
+  height: 100%;
+  padding: 0 2em;
+  text-transform: uppercase;
+  align-items: center;
+  font-weight: 300;
+}
+
+nav a:hover {
+  background-color: #888888;
+  color: white;
+  font-weight: 400;
+}
+
+nav a.active {
+  background-color: #3a3a3a;
+  color: white;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 799px) {
+  nav ul {
+    width: 75vw;
+    justify-content: space-around;
+  }
+
+  nav a {
+    padding: 0 1em;
+  }
+}
