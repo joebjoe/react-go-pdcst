@@ -35,6 +35,9 @@ func New(clientHostAddress *url.URL, clientAPIKey string) *Server {
 		gin.Logger(),
 		static.Serve("/", static.LocalFile("./web", true)), //serve frontend
 	)
+	e.NoRoute(func(ctx *gin.Context) {
+		ctx.File("./web")
+	})
 	return &Server{
 		engine:  e,
 		client:  &http.Client{},
