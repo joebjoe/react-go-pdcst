@@ -1,5 +1,5 @@
 {
-  "root": "build/",
+  "root": "web/",
   "clean_urls": false,
   "routes": {
     "/**": "index.html"
