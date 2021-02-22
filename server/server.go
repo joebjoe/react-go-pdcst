@@ -33,7 +33,7 @@ func New(clientHostAddress *url.URL, clientAPIKey string) *Server {
 	e := gin.New()
 	e.Use(
 		gin.Logger(),
-		static.Serve("/**", static.LocalFile("./web", true)), //serve frontend
+		static.Serve("/", static.LocalFile("./web", true)), //serve frontend
 	)
 	return &Server{
 		engine:  e,
