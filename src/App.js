@@ -52,7 +52,7 @@ class App extends Component {
   render() {
     const NavBtn = this.state.nav_active ? GrClose : GrMenu;
     return (
-      <Router>
+      <Router basename="/">
         <header>
           <h1>
             <Link
