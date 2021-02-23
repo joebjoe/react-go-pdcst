@@ -1,5 +1,6 @@
+SERVER_BIN=$(GOBIN)/pdcst-server
 build:
-	@go build -ldflags "-w" -a -o ./.bin/server .
+	@go build -ldflags "-w" -a -o $(SERVER_BIN) .
 
 run:: build
-	@.bin/server
+	@$(SERVER_BIN)
