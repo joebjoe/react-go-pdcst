@@ -22,18 +22,18 @@ class App extends Component {
       nav_active: false,
     };
     
+    this.toggleNav = () => {
+      this.setState(state => {
+        return { nav_active: !state.nav_active }
+      });
+    };
+    
     //needed for links that should only ever close the nav
     this.closeNav = () => {
       this.setState(() => {
         return { nav_active: false }
       });
-    }
-    
-    this.toggleNav = () => {
-      this.setState(state => {
-        return { nav_active: !state.nav_active }
-      });
-    }
+    };
   }
 
   render() {
