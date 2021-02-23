@@ -20,34 +20,20 @@ class App extends Component {
     super(props);
     this.state = {
       nav_active: false,
-      is_scrollable: false,
     };
     
     //needed for links that should only ever close the nav
     this.closeNav = () => {
       this.setState(() => {
         return { nav_active: false }
-      }, this.handleScrollable);
+      });
     }
     
     this.toggleNav = () => {
       this.setState(state => {
         return { nav_active: !state.nav_active }
-      }, this.handleScrollable);
+      });
     }
-
-    this.handleScrollable = () => {
-      const {innerHeight, pageYOffset} = window, { scrollHeight } = document.documentElement;
-      let scroll_amt = scrollHeight - pageYOffset - innerHeight
-      this.setState(() => {
-        return { is_scrollable: scroll_amt > 0 }
-      })
-    }
-  }
-
-  componentDidMount() {
-    this.handleScrollable();
-    window.addEventListener('scroll', this.handleScrollable);
   }
 
   render() {
@@ -61,7 +47,7 @@ class App extends Component {
               onClick={this.closeNav}
             >PDCST.</Link>
           </h1>
-          <NavBtn className="nav-btn" onClick={this.toggleNav}/>
+          <NavBtn className="nav-btn" onClick={this.toggleNav} />
           <Nav 
             className={this.state.nav_active ? 'active' : ''}
             onClick={this.closeNav}
@@ -94,9 +80,7 @@ class App extends Component {
             </Route>
           </Switch>
         </main>
-        <footer
-          className={this.state.is_scrollable ? 'scrollbox' : ''}
-        >
+        <footer>
           <small>View the {"</>"} on <a href="https://github.com/joebjoe/react-go-pdcst" target="_blank">Github</a></small>
         </footer>
       </Router>
