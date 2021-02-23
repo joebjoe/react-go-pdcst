@@ -10,6 +10,7 @@ import Library from './views/Library';
 import About from './views/About';
 import Detail from './views/Detail';
 import Episode from './views/Episode';
+import NotFound from './views/NotFound';
 import Nav, { navRoute } from './components/Nav';
 import React, { Component } from "react";
 import { GrMenu, GrClose } from "react-icons/gr";
@@ -87,6 +88,9 @@ class App extends Component {
             </Route>
             <Route exact path="/">
               <Explore />
+            </Route>
+            <Route path="*">
+              <NotFound />
             </Route>
           </Switch>
         </main>

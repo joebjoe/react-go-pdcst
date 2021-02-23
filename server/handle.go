@@ -20,22 +20,6 @@ func handlePing(grp *gin.RouterGroup, s *Server) {
 	})
 }
 
-func handleRoutes(grp *gin.RouterGroup, s *Server) {
-	grp.GET(formattedHandlerPath("routes"), func(ctx *gin.Context) {
-		ctx.JSON(http.StatusOK, gin.H{
-			"routes": registeredRoutes,
-		})
-	})
-}
-
-func handle404(ctx *gin.Context) {
-	if isRegisteredRoute.MatchString(ctx.Request.URL.Path) {
-		ctx.File("./web")
-		return
-	}
-	ctx.JSON(http.StatusNotFound, "nothing here...")
-}
-
 func handle(path string) HandleFunc {
 	path = formattedHandlerPath(path)
 	return func(grp *gin.RouterGroup, s *Server) {

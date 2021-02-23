@@ -9,13 +9,12 @@ import (
 )
 
 const (
-	basePath                = "/api"
+	basePath                = "/api/v1"
 	requestHeaderNameAPIKey = "X-ListenAPI-Key"
 )
 
 var handlers = []HandleFunc{
 	handlePing,
-	handleRoutes,
 	handle("best_podcasts"),
 	handle("podcasts/:id"),
 	handle("typeahead"),
@@ -36,7 +35,10 @@ func New(clientHostAddress *url.URL, clientAPIKey string) *Server {
 		gin.Logger(),
 		static.Serve("/", static.LocalFile("./web", true)), //serve frontend
 	)
-	e.NoRoute(handle404)
+	e.NoRoute(func(ctx *gin.Context) {
+		//serve up the index page and let React determine whether its a valid route our not
+		ctx.File("./web")
+	})
 	return &Server{
 		engine:  e,
 		client:  &http.Client{},

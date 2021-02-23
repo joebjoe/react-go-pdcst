@@ -1,0 +1,12 @@
+section.view--404 {
+    text-align: center;
+}
+
+section.view--404 > h2 {
+    max-width: 100vw;
+    font-weight: 300;
+    font-size: 9em;
+    margin-block-end: 0;
+    line-height: initial;
+    overflow-x: hidden;
+}
