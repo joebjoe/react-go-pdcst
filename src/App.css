@@ -1,3 +1,8 @@
+:root {
+  /* for mobile browser height (100vh in css doesn't take into account the mobile browser interface) */
+  --main-height: calc((var(--vh, 1vh) * 100) - (72px + 30px + 2em + (0.83em * 1.5))); /* subtract header height + footer height + footer padding + main > h2 margin-top */
+}
+
 * {
   font-family: 'Spartan', sans-serif;
   line-height: 1.6;
@@ -45,7 +50,9 @@ header h1 a {
 
 main {
   margin: 0 auto;
-  min-height: calc(100vh - (72px + 30px + 2em + (0.83em * 1.5))) /* subtract header height + footer height + footer padding + main > h2 margin-top */
+  /* fallback for older browsers */
+  min-height: calc(100vh - (72px + 30px + 2em + (0.83em * 1.5)));
+  min-height: var(--main-height);
 }
 
 footer {

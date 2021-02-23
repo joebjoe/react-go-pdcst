@@ -36,6 +36,12 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    //for mobile browser height (100vh in css doesn't take into account the mobile browser interface)
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+
   render() {
     const NavBtn = this.state.nav_active ? GrClose : GrMenu;
     return (
