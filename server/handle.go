@@ -1,6 +1,7 @@
 package server
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -28,12 +29,12 @@ func handle(path string) HandleFunc {
 			if isErred(ctx, err) {
 				return
 			}
-			ctx.JSON(http.StatusOK, string(resp))
+			ctx.JSON(http.StatusOK, resp)
 		})
 	}
 }
 
-func (s *Server) doRequest(ctx *gin.Context) ([]byte, error) {
+func (s *Server) doRequest(ctx *gin.Context) (interface{}, error) {
 	//dereferencing to not mutate the host address
 	reqURL := *s.hostURL
 	reqURL.Path = reqURL.Path + strings.TrimPrefix(ctx.Request.URL.Path, basePath)
@@ -57,7 +58,12 @@ func (s *Server) doRequest(ctx *gin.Context) ([]byte, error) {
 	if len(b) == 0 || err != nil || resp.StatusCode > 299 {
 		return nil, fmt.Errorf("error making request: %v\n\nRequest: %+v\n\nStatus: %s\n\nResponse: %v", err, req, resp.Status, string(b))
 	}
-	return b, nil
+
+	var response interface{}
+	if err = json.Unmarshal(b, &response); err != nil {
+		return nil, fmt.Errorf("error unmarshaling response: %v", err)
+	}
+	return response, nil
 }
 
 func isErred(ctx *gin.Context, err error) bool {

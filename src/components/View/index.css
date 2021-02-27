@@ -3,6 +3,10 @@ section.view {
   text-align: justify;
 }
 
+section.view > * {
+  max-width: 100%;
+}
+
 section.view > h2 {
   font-weight: bold;
   text-align: center;

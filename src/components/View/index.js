@@ -1,9 +1,14 @@
 import './index.css';
 
 export default function(props) {
+  let renderTitle = () => {
+    if (props.title) {
+      return <h2>{props.title}</h2>
+    }
+  }
   return (
     <section className={"view view--" + props.className}>
-      <h2>{props.title}.</h2>
+      {renderTitle()}
       {props.children}
     </section>
   )

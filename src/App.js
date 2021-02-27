@@ -1,19 +1,23 @@
 import './App.css';
 import {
-  BrowserRouter as Router,
+  Router,
   Switch,
   Route,
-  Link
+  Link,
 } from "react-router-dom";
-import Explore from './views/Explore';
+import Explorer from './views/Explorer';
 import Library from './views/Library';
 import About from './views/About';
-import Detail from './views/Detail';
+import Podcast from './views/Podcast';
 import Episode from './views/Episode';
 import NotFound from './views/NotFound';
 import Nav, { navRoute } from './components/Nav';
 import React, { Component } from "react";
 import { GrMenu, GrClose } from "react-icons/gr";
+import { v4 as uuid } from 'uuid';
+import { createBrowserHistory } from "history";
+
+const appHistory = createBrowserHistory();
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +25,7 @@ class App extends Component {
     this.state = {
       nav_active: false,
     };
-    
+
     this.toggleNav = () => {
       this.setState(state => {
         return { nav_active: !state.nav_active }
@@ -42,10 +46,22 @@ class App extends Component {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    appHistory.push('/temp');
+    appHistory.goBack();
+  }
+
   render() {
     const NavBtn = this.state.nav_active ? GrClose : GrMenu;
+    const home = {
+      pathname: "/",
+      key: uuid(),
+      state: {
+        applied: true
+      },
+    }
     return (
-      <Router basename="/">
+      <Router basename="/" history={appHistory}>
         <header>
           <h1>
             <Link
@@ -58,7 +74,7 @@ class App extends Component {
             className={this.state.nav_active ? 'active' : ''}
             onClick={this.closeNav}
             routes={[
-              navRoute("Explore", ""),
+              navRoute("Explore", "/"),
               navRoute("Library"),
               navRoute("About"),
             ]}
@@ -69,8 +85,8 @@ class App extends Component {
             <Route exact path="/episode/:id">
               <Episode />
             </Route>
-            <Route exact path="/detail/:id">
-              <Detail />
+            <Route exact path="/podcast/:id">
+              <Podcast />
             </Route>
             <Route exact path="/library">
               <Library />
@@ -79,8 +95,9 @@ class App extends Component {
               <About />
             </Route>
             <Route exact path="/">
-              <Explore />
+              <Explorer />
             </Route>
+            <Route exact path="/temp"/>
             <Route path="*">
               <NotFound />
             </Route>

@@ -3,6 +3,7 @@ package server
 import (
 	"net/http"
 	"net/url"
+	"time"
 
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
@@ -11,6 +12,7 @@ import (
 const (
 	basePath                = "/api/v1"
 	requestHeaderNameAPIKey = "X-ListenAPI-Key"
+	clientTimeout           = time.Second * 15
 )
 
 var handlers = []HandleFunc{
@@ -18,6 +20,7 @@ var handlers = []HandleFunc{
 	handle("best_podcasts"),
 	handle("podcasts/:id"),
 	handle("typeahead"),
+	handle("search"),
 }
 
 // Server for serving fromend SPA and for acting as middleware between client and the third-party api
@@ -41,7 +44,7 @@ func New(clientHostAddress *url.URL, clientAPIKey string) *Server {
 	})
 	return &Server{
 		engine:  e,
-		client:  &http.Client{},
+		client:  &http.Client{Timeout: clientTimeout},
 		hostURL: clientHostAddress,
 		apiKey:  clientAPIKey,
 	}

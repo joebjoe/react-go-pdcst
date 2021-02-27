@@ -1,0 +1,121 @@
+.search-results--list {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2em;
+}
+
+.search-results--item {
+    position: relative;
+    border-radius: 0.5em;
+    overflow: hidden;
+    box-shadow: 0 0 30px -5px rgba(0,0,0,0.75);
+    
+}
+
+.search-results--item a {
+    border-bottom: none;
+    position: relative;
+    display: flex;
+}
+
+.search-results--item > .description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    align-self: center;
+    justify-self: center;
+    text-align: left;
+    background-color: rgba(255,255,255,0.9);
+    transition: height 0.1s ease-out;
+    overflow-y: scroll;
+}
+
+.search-results--item > .description h4 {
+    margin: 0 auto 0.25em;
+    border-bottom: 1px dashed #3a3a3a;
+    font-weight: bold;
+}
+
+.search-results--item > .info-icon-wrapper {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 0;
+    width: 0;
+    pointer-events: none;
+}
+
+.search-results--item > .info-icon-wrapper > .info-icon-bg {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 0;
+    width: 0;
+    border: 20px solid white;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    pointer-events: none;
+}
+
+.search-results--item > .info-icon-wrapper > .info-icon  {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    pointer-events: auto;
+}
+
+.search-results--item > .info-icon-wrapper:hover + .description,
+.search-results--item > .info-icon-wrapper:active + .description,
+.search-results--item > .description:hover {
+    box-shadow: 0 0 20px -5px rgba(0,0,0,0.5);
+    padding: 1em;
+    height: calc(75% - 2em);
+}
+
+.search-results--item > .description > div {
+    font-size: 0.85em;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+.search-results--item a > img {
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.search-results--list > .jump-to-top {
+    display: none;
+    position: fixed;
+    top: 1em;
+    right: 1.5em;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    color: #3a3a3a;
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.jump-to-top:active {
+    transform:translate(1px, 1px);
+}
+
+@media screen and (max-width: 799px) {
+    .search-results--list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 449px) {
+    .search-results--list {
+        grid-template-columns: 1fr;
+    }
+}
+

@@ -1,10 +1,12 @@
 import './index.css';
 import { NavLink } from 'react-router-dom';
 
+const stringPath = path => `/${path}`.toLowerCase();
+
 export function navRoute(name, path) {
   return {
     name: name,
-    path: `/${path === undefined ? name : path }`.toLowerCase(),
+    path: path === undefined ? stringPath(name) : typeof(path) === typeof(String) ? stringPath(path) : path,
   }
 }
 
