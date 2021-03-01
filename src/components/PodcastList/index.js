@@ -1,6 +1,7 @@
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 import { Link } from 'react-router-dom';
 import './index.css';
+import { GrDown } from 'react-icons/gr';
 import { GoInfo } from 'react-icons/go';
 import { MdArrowUpward } from 'react-icons/md';
 
@@ -9,6 +10,7 @@ class List extends Component {
         super(props);
         this.state = {
             gridItemHeight: 0,
+            refs: new Array(props.results.length).fill(null),
         }
 
         this.setGridItemHeight = () => {
@@ -16,6 +18,18 @@ class List extends Component {
             this.setState(() => {
                 return { gridItemHeight: firstItem.clientWidth }
             })
+        }
+
+        this.toggleActiveRef = i => {
+            return () => {
+                this.state.refs.forEach((ref, idx) => {
+                    if (i === idx) {
+                        ref.current.classList.toggle('active');
+                    } else {
+                        ref.current.classList.remove('active');
+                    }
+                });
+            }
         }
 
         this.handleInfiniteScroll = e => {
@@ -32,13 +46,25 @@ class List extends Component {
                 this.props.onScroll();
             }
         }
+
         this.jumpToTop = () => {
             setTimeout(() => { window.scrollTo(0,0); }, 150);
+        }
+
+        this.setRef = (ref, i) => {
+            this.setState(state => {
+                state.refs[i] = ref;
+                return {refs: state.refs}
+            })
         }
     }
     
     componentDidMount() {
-        this.setGridItemHeight();        
+        this.setGridItemHeight();
+
+        this.props.results.forEach((_, i) => {
+            this.setRef(createRef(), i);
+        })
 
         window.addEventListener('resize', this.setGridItemHeight);
         window.addEventListener('scroll', this.handleInfiniteScroll);
@@ -53,17 +79,18 @@ class List extends Component {
             <div>
                 <ul
                     className="search-results--list"
-                    style={{ gridAutoRows: `${this.state.gridItemHeight}px `}}
+                    style={{ gridAutoRows: `${this.state.gridItemHeight}px`}}
                 >
                     {this.props.results.map((result, i) => {
                         return (
                             <li
                                 key={i}
+                                ref={this.state.refs[i]}
                                 className="search-results--item"
                             >
                                 <Link
                                     className="card"
-                                    to={`podcast/${result.id}`}
+                                    to={`podcasts/${result.id}`}
                                 >
                                     <img src={result.image} />
                                 </Link>
@@ -72,10 +99,13 @@ class List extends Component {
                                     style={{ top: `${this.state.gridItemHeight}px`}}
                                 >
                                     <div className="info-icon-bg"></div> {/* can't wrap the icon as we won't be able to point to the description on icon hover is css */}
-                                    <GoInfo className={`info-icon`} />
+                                    <GoInfo className={`info-icon`} onClick={this.toggleActiveRef(i)}/>
                                 </div>
                                 <div className="description">
-                                    <h4>{result.title_original}</h4>
+                                    <h4>
+                                        {result.title_original}
+                                        <GrDown className="description-collapse" onClick={this.toggleActiveRef(i)}/>
+                                    </h4>
                                     <div dangerouslySetInnerHTML={{__html: result.description_original}}></div>
                                 </div>
                             </li>

@@ -68,14 +68,21 @@
     bottom: 4px;
     right: 4px;
     pointer-events: auto;
+    cursor: pointer;
 }
 
-.search-results--item > .info-icon-wrapper:hover + .description,
+/* .search-results--item > .info-icon-wrapper:hover + .description,
 .search-results--item > .info-icon-wrapper:active + .description,
-.search-results--item > .description:hover {
+.search-results--item > .description:hover, */
+.search-results--item.active > .description {
     box-shadow: 0 0 20px -5px rgba(0,0,0,0.5);
     padding: 1em;
     height: calc(75% - 2em);
+}
+
+.search-results--item .description-collapse {
+    float: right;
+    cursor: pointer;
 }
 
 .search-results--item > .description > div {
