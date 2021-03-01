@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './index.css';
-import {IconContext } from 'react-icons';
 import { GoInfo } from 'react-icons/go';
 import { MdArrowUpward } from 'react-icons/md';
 
@@ -26,10 +25,8 @@ class List extends Component {
                 if (!jumpToTop.style.display) {
                     jumpToTop.style.display = 'block';
                 } 
-            } else {
-                if (jumpToTop.style.display) {
-                    jumpToTop.style.display = ""
-                }
+            } else if (jumpToTop.style.display) {
+                jumpToTop.style.display = ""
             }
             if (scrollHeight - scrollTop - clientHeight <= this.state.gridItemHeight) {
                 this.props.onScroll();
@@ -56,7 +53,6 @@ class List extends Component {
             <div>
                 <ul
                     className="search-results--list"
-                    onScroll={this.infiniteScroll}
                     style={{ gridAutoRows: `${this.state.gridItemHeight}px `}}
                 >
                     {this.props.results.map((result, i) => {
@@ -87,15 +83,6 @@ class List extends Component {
                     })}
                     <MdArrowUpward className="jump-to-top" onClick={this.jumpToTop} />
                 </ul>
-                {/* <IconContext.Provider
-                    value={{
-                        color: 'blue',
-                        className: 'jump-to-top',
-                    }}
-                >
-                    <div>
-                    </div>
-                </IconContext.Provider> */}
             </div>
         )
     }

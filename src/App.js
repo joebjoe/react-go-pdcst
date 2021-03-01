@@ -82,10 +82,10 @@ class App extends Component {
         </header>
         <main>
           <Switch>
-            <Route exact path="/episode/:id">
+            <Route exact path="/episodes/:id">
               <Episode />
             </Route>
-            <Route exact path="/podcast/:id">
+            <Route exact path="/podcasts/:id">
               <Podcast />
             </Route>
             <Route exact path="/library">

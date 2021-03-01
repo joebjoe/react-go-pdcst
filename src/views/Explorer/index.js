@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import './index.css';
 import View from '../../components/View';
-import List from '../../components/List';
+import List from '../../components/PodcastList';
 import Search from '../../components/Search';
 import axios from 'axios';
 import { get_url } from '../../common';
@@ -27,18 +27,18 @@ class Explorer extends Component {
 
     this.renderPage = () => {
       if (this.state.results.length) {
-        return (
-          <List
-            onScroll={() => { 
-              if (this.state.searching) return;
-              this.submitSearch();
-            }}
-            results={this.state.results}
-          />
-        )
+          return (
+            <List
+              onScroll={() => { 
+                if (this.state.searching) return;
+                this.submitSearch();
+              }}
+              results={this.state.results}
+            />
+          )
       }
     }
-    this.setResults = (results) => {
+    this.setResults = results => {
       this.setState(state => {
         return { 
           results: state.results.concat(results)
