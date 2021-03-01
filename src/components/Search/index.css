@@ -1,3 +1,7 @@
+.search-wrapper {
+    margin-bottom: 2em;
+}
+
 
 .search-wrapper, .search-wrapper * {
     line-height: initial;

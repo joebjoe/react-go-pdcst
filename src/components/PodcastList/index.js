@@ -14,7 +14,7 @@ class List extends Component {
         }
 
         this.setGridItemHeight = () => {
-            const firstItem = document.querySelector('li.search-results--item');
+            const firstItem = document.querySelector('li.search-results-item');
             this.setState(() => {
                 return { gridItemHeight: firstItem.clientWidth }
             })
@@ -78,7 +78,7 @@ class List extends Component {
         return (
             <div>
                 <ul
-                    className="search-results--list"
+                    className="search-results-list"
                     style={{ gridAutoRows: `${this.state.gridItemHeight}px`}}
                 >
                     {this.props.results.map((result, i) => {
@@ -86,7 +86,7 @@ class List extends Component {
                             <li
                                 key={i}
                                 ref={this.state.refs[i]}
-                                className="search-results--item"
+                                className="search-results-item"
                             >
                                 <Link
                                     className="card"

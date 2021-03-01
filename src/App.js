@@ -8,8 +8,8 @@ import {
 import Explorer from './views/Explorer';
 import Library from './views/Library';
 import About from './views/About';
-import Podcast from './views/Podcast';
-import Episode from './views/Episode';
+import Podcast from './views/PodcastDetail';
+import Episode from './views/EpisodeDetail';
 import NotFound from './views/NotFound';
 import Nav, { navRoute } from './components/Nav';
 import React, { Component } from "react";

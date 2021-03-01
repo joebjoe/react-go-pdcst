@@ -1,4 +1,4 @@
-.search-results--list {
+.search-results-list {
     display: grid;
     margin: 0;
     padding: 0;
@@ -8,7 +8,7 @@
     grid-gap: 2em;
 }
 
-.search-results--item {
+.search-results-item {
     position: relative;
     border-radius: 0.5em;
     overflow: hidden;
@@ -16,33 +16,43 @@
     
 }
 
-.search-results--item a {
+.search-results-item a {
     border-bottom: none;
     position: relative;
     display: flex;
 }
 
-.search-results--item > .description {
+.search-results-item > .description {
     position: absolute;
-    bottom: 0;
+    bottom: -1em;
     left: 0;
     right: 0;
     height: 0;
     align-self: center;
     justify-self: center;
     text-align: left;
+    border-top: 1em solid transparent;
     background-color: rgba(255,255,255,0.9);
-    transition: height 0.1s ease-out;
+    transition-property: height, bottom;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-out;
     overflow-y: scroll;
 }
 
-.search-results--item > .description h4 {
+.search-results-item.active > .description {
+    box-shadow: 0 0 20px -5px rgba(0,0,0,0.5);
+    bottom: 0;
+    padding: 0 1em 1em;
+    height: calc(75% - 2em);
+}
+
+.search-results-item > .description h4 {
     margin: 0 auto 0.25em;
     border-bottom: 1px dashed #3a3a3a;
     font-weight: bold;
 }
 
-.search-results--item > .info-icon-wrapper {
+.search-results-item > .info-icon-wrapper {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -51,7 +61,7 @@
     pointer-events: none;
 }
 
-.search-results--item > .info-icon-wrapper > .info-icon-bg {
+.search-results-item > .info-icon-wrapper > .info-icon-bg {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -63,7 +73,7 @@
     pointer-events: none;
 }
 
-.search-results--item > .info-icon-wrapper > .info-icon  {
+.search-results-item > .info-icon-wrapper > .info-icon  {
     position: absolute;
     bottom: 4px;
     right: 4px;
@@ -71,32 +81,23 @@
     cursor: pointer;
 }
 
-/* .search-results--item > .info-icon-wrapper:hover + .description,
-.search-results--item > .info-icon-wrapper:active + .description,
-.search-results--item > .description:hover, */
-.search-results--item.active > .description {
-    box-shadow: 0 0 20px -5px rgba(0,0,0,0.5);
-    padding: 1em;
-    height: calc(75% - 2em);
-}
-
-.search-results--item .description-collapse {
+.search-results-item .description-collapse {
     float: right;
     cursor: pointer;
 }
 
-.search-results--item > .description > div {
+.search-results-item > .description > div {
     font-size: 0.85em;
     text-align: left;
     word-wrap: break-word;
 }
 
-.search-results--item a > img {
+.search-results-item a > img {
     min-height: 100%;
     min-width: 100%;
 }
 
-.search-results--list > .jump-to-top {
+.search-results-list > .jump-to-top {
     display: none;
     position: fixed;
     top: 1em;
@@ -115,13 +116,13 @@
 }
 
 @media screen and (max-width: 799px) {
-    .search-results--list {
+    .search-results-list {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media screen and (max-width: 449px) {
-    .search-results--list {
+    .search-results-list {
         grid-template-columns: 1fr;
     }
 }

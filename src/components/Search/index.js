@@ -47,7 +47,7 @@ class Search extends Component {
                             key={i}
                             className="result--typeahead"
                         >
-                            <Link to={`podcast/${result.id}`}>
+                            <Link to={`podcasts/${result.id}`}>
                                 <img src={result.thumbnail} />{result.title_original}
                             </Link>
                         </li>
