@@ -23,8 +23,7 @@ class Podcast extends Component {
         if (state.episodes.length) { 
           episodes = state.episodes.concat(podcast.episodes);  
         };
-
-      
+        
         podcast.next_episode_pub_date = podcast.next_episode_pub_date || (state.podcast ? state.podcast.next_episode_pub_date : 0);
 
         return { podcast, episodes }
