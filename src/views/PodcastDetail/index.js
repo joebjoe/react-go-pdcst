@@ -6,7 +6,15 @@ import { get_url, isInViewport } from '../../common';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import View from '../../components/View';
-import { BsPlay as PlayBtn, BsPause as PauseBtn, BsVolumeUp as VolUpBtn, BsVolumeDown as VolDwnBtn, BsVolumeMute as MuteBtn, BsArrowsCollapse as CollapseBtn } from 'react-icons/bs';
+import { 
+  BsPlay as PlayBtn, 
+  BsPause as PauseBtn, 
+  BsVolumeUp as VolUpBtn, 
+  BsVolumeDown as VolDwnBtn, 
+  BsVolumeMute as MuteBtn, 
+  BsArrowsCollapse as CollapseBtn
+ } from 'react-icons/bs';
+import { GrClose } from 'react-icons/gr';
 
 const runTime = sec => {
   const h = Math.floor(sec / 60 / 60);
@@ -170,6 +178,16 @@ class Podcast extends Component {
       loader.classList.toggle('hidden');
     }
 
+    this.showPodcastDescription = () => {
+      const desc = document.querySelector('.podcast-detail-sidebar > .description')
+      desc.classList.add('show');
+    }
+
+    this.hidePodcastDescription = () => {
+      const desc = document.querySelector('.podcast-detail-sidebar > .description')
+      desc.classList.remove('show');
+    }
+
     this.renderLoaderOrContent = podcast => {
       if (!podcast) {
         return (
@@ -178,9 +196,27 @@ class Podcast extends Component {
       }
       return (
         <div className="podcast-detail-grid">
+          <h2 className="podcast-title">{podcast.title}</h2>
           <div className="podcast-detail-sidebar">
-            <img src={podcast.image} alt={podcast.title}/>
-            <div className="description" dangerouslySetInnerHTML={{__html: podcast.description}}></div>
+            <img
+              src={podcast.image}
+              alt={podcast.title}
+              className="podcast-image"
+              onClick={this.showPodcastDescription}
+            />
+            <div className="description">
+              <div className="desc-inner">
+                <h4 className="desc-title">
+                  {podcast.title}
+                  <GrClose
+                    className="desc-close"
+                    onClick={this.hidePodcastDescription}
+                    color="red"
+                  />
+                </h4>
+                <div dangerouslySetInnerHTML={{__html: podcast.description}}></div>
+              </div>
+            </div>
           </div>
           <ul id="podcast-episode-list" className="episode-list">
             {this.state.episodes.map((episode, i) => {
@@ -195,18 +231,18 @@ class Podcast extends Component {
                     <span className="run-time">{runTime(episode.audio_length_sec)}</span>
                     <CollapseBtn className="episode-collapse" onClick={this.handleEpisodeClose(i)} />
                   </div>
-                  <Loader className="episode-loader" type="Audio" color="#3a3a3a" />
-                  <div className="details" onTransitionEnd={this.handleEpisodeLoader}>
+                  <div className="details">
+                    <Loader className="episode-loader" type="Audio" color="#3a3a3a" />
                     <div className="description" dangerouslySetInnerHTML={{__html: episode.description}}></div>
-                    <audio
-                      src={episode.audio}
-                      controlsList="nodownload"
-                      preload="metadata"
-                      onTimeUpdate={this.renderPlaybackChanges(i)}
-                    >
-                      You're browser does not support the <code>audio</code> element.
-                    </audio>
-                    <div className="audio-player">
+                    <div className="audio-player" onTransitionEnd={this.handleEpisodeLoader}>
+                      <audio
+                        src={episode.audio}
+                        controlsList="nodownload"
+                        preload="metadata"
+                        onTimeUpdate={this.renderPlaybackChanges(i)}
+                      >
+                        You're browser does not support the <code>audio</code> element.
+                      </audio>
                       <div className="audio-player-button">
                         <PlayerBtn onClick={this.togglePlayerState(i)} />
                       </div>
@@ -250,7 +286,6 @@ class Podcast extends Component {
               )
             })}
           </ul>
-          <div className="active-episode-panel"></div>
         </div>
       )
     }
@@ -268,10 +303,7 @@ class Podcast extends Component {
   render() {
     const podcast = this.state.podcast;
     return (
-      <View
-        title={podcast ? podcast.title : ''}
-        className="podcast-detail"
-      >
+      <View className="podcast-detail" >
         {this.renderLoaderOrContent(podcast)}
       </View>
     );

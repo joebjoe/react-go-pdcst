@@ -5,24 +5,22 @@
     margin: 20% auto;
 }
 
-section.view--podcast-detail > h2 {
+section.view--podcast-detail h2.podcast-title {
     text-align: left;
     font-size: 2em;
+    font-weight: 700;
 }
 
 .podcast-detail-grid {
     position: relative;
     display: grid;
-    grid-template: 1fr / 300px 1fr;
+    grid-template: 100px 1fr / 300px 1fr;
     grid-gap: 1.5em;
     padding: 1em 0;
 }
 
-.podcast-detail-sidebar {
-    align-self: start;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 1em;
+.podcast-title {
+    grid-area: 1 / 1 / 2 / 3;
 }
 
 .podcast-detail-sidebar > img {
@@ -30,8 +28,19 @@ section.view--podcast-detail > h2 {
     box-shadow: 0 0 20px -5px rgba(0,0,0,0.75);
 }
 
-.podcast-detail-sidebar .description {
+.podcast-detail-sidebar > .description {
     word-wrap: break-word;
+}
+
+.podcast-detail-sidebar > .description .desc-title {
+    display: none;
+    font-weight: 700;
+    margin: 0 0 0.75em;
+    align-items: center;
+}
+
+.podcast-detail-sidebar > .description .desc-title > svg.desc-close {
+    margin-left: auto;
 }
 
 .view--podcast-detail .episode-list {
@@ -41,15 +50,14 @@ section.view--podcast-detail > h2 {
 }
 .view--podcast-detail .episode-item {
     min-height: 75px;
-    padding: 0 1em;
     background-color: white;
     cursor: pointer;
 }
 
 .view--podcast-detail .episode-item.active {
-    position: sticky;
-    top: 0;
-    box-shadow: 0px 20px 10px -20px #5f5f5f, 0px -20px 10px -20px #5f5f5f;
+    position: relative;
+    z-index: 100;
+    box-shadow: 0px 5px 10px -5px #5f5f5f, 0px -5px 10px -5px #5f5f5f;
 }
 
 .view--podcast-detail .episode-item > .heading {
@@ -68,6 +76,7 @@ section.view--podcast-detail > h2 {
 .view--podcast-detail .episode-item > .heading > h4 {
     margin: 0;
     font-weight: 700;
+    text-align: left;
 }
 
 .view--podcast-detail .episode-item > .heading > .run-time,
@@ -89,17 +98,36 @@ section.view--podcast-detail > h2 {
 }
 
 .view--podcast-detail .episode-item > .details {
+    display: flex;
+    flex-direction: column;
     position: relative;
     min-height: 0;
     height: 0;
     overflow: hidden;
-    visibility: hidden;
     transition: min-height 1s ease-out,
-                visibility 0s linear 1s;
+                overflow 0s linear 1s;
+}
+
+.view--podcast-detail .episode-item.active > .details {
+    min-height: 200px;
+}
+
+.view--podcast-detail .episode-item > .details > .description,
+.view--podcast-detail .episode-item > .details > .audio-player {
+    visibility: hidden;
+    transition: visibility 0s linear 1s;
+}
+
+.view--podcast-detail .episode-item.active > .details > .description,
+.view--podcast-detail .episode-item.active > .details > .audio-player {
+    visibility: visible;
+}
+
+.view--podcast-detail .episode-item .description {
     padding: 0 1em;
 }
 
-.view--podcast-detail .episode-item > .episode-loader {
+.view--podcast-detail .episode-item .episode-loader {
     display: none;
     position: absolute;
     height: 80px;
@@ -108,35 +136,19 @@ section.view--podcast-detail > h2 {
     left: calc(50% - 40px);
 }
 
-.view--podcast-detail .episode-item.active > .episode-loader {
-    display: flex;
+.view--podcast-detail .episode-item.active .episode-loader {
+    display: block;
 }
 
-.view--podcast-detail .episode-item > .episode-loader.hidden {
+.view--podcast-detail .episode-item .episode-loader.hidden {
     display: none;
-}
-
-.view--podcast-detail .episode-item.active > .details {
-    min-height: 150px;
-    overflow: visible;
-    visibility: visible;
-}
-
-.view--podcast-detail .episode-list > .episode-item:not(.active):hover > .heading {
-    background-color: #5f5f5f;
-}
-
-.view--podcast-detail .episode-list > .episode-item:not(.active):hover > .heading > * {
-    color: white;
 }
 
 .view--podcast-detail .episode-item > .details > .audio-player {
     display: flex;
+    margin-top: auto;
     height: 36px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: relative;
     background-color: #5f5f5f;
     align-items: center;
 }
@@ -309,4 +321,113 @@ section.view--podcast-detail > h2 {
 
 .slide-wrapper > .seek-slider::-moz-range-thumb:hover {
     height: 24px;
+}
+
+@media screen and (max-width: 799px) {
+    .podcast-detail-grid {
+        grid-template-columns: 100px 1fr;
+        grid-template-rows: 100px 1fr;
+    }
+
+    .podcast-detail-sidebar {
+        grid-row: 1 / 2;
+        grid-column: 1 / 2;
+    }
+
+    .podcast-detail-sidebar > .podcast-image {
+        height: 100%;
+        width: 100%;
+    }
+
+    .podcast-detail-sidebar > .description {
+        display: none;
+        position: fixed;
+        top: 5em;
+        right: 1em;
+        left: 1em;
+        bottom: 5em;
+        z-index: 1000;
+        overflow: hidden;
+    }
+    
+    .podcast-detail-sidebar > .description.show {
+        display: block;
+    }
+    .podcast-detail-sidebar > .description > .desc-inner {
+        position: absolute;
+        background-color: white;
+        padding: 1em;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 10;
+    }
+
+    .podcast-detail-sidebar > .description::after {
+        z-index: 1;
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(95, 95, 95, 0.5);
+        overflow: hidden;
+    }
+
+    .podcast-detail-sidebar > .description.show::after {
+        content: '';
+    }
+
+    .podcast-detail-sidebar > .description .desc-title {
+        display: flex;
+    }
+
+    .podcast-title {
+        grid-row: 1 /2;
+        grid-column: 2 / 3;
+        word-wrap: break-word;
+    }
+    ul.episode-list {
+        grid-row-start: 2;
+        grid-column: 1 / 3;
+    }
+
+    .view--podcast-detail .episode-item:not(.active) > .heading {
+        padding: 0;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .podcast-detail-sidebar {
+        position: -webkit-sticky;
+        position: -moz-sticky;
+        position: -o-sticky;
+        position: -ms-sticky;
+        position: sticky;
+        align-self: start;
+        top: 1em;
+    }
+
+    .podcast-detail-sidebar > .podcast-image {
+        pointer-events: none;
+    }
+    
+    .view--podcast-detail .episode-item.active {
+        position: -webkit-sticky;
+        position: -moz-sticky;
+        position: -o-sticky;
+        position: -ms-sticky;
+        position: sticky;
+        top: 0;
+    }
+
+    .view--podcast-detail .episode-list > .episode-item:not(.active):hover > .heading {
+        background-color: #5f5f5f;
+    }
+    
+    .view--podcast-detail .episode-list > .episode-item:not(.active):hover > .heading > * {
+        color: white;
+    }
 }

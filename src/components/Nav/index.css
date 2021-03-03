@@ -1,3 +1,9 @@
+nav {
+  position: relative;
+  z-index: 900;
+  background-color: white;
+}
+
 nav ul {
   height: 100%;
   margin: 0 auto;
