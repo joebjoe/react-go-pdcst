@@ -39,19 +39,274 @@ section.view--podcast-detail > h2 {
     padding: 0;
     list-style-type: none;
 }
-.view--podcast-detail .episode-panel {
-    min-height: 100px;
-    border-top: 1px solid #3a3a3a;
+.view--podcast-detail .episode-item {
+    min-height: 75px;
+    padding: 0 1em;
+    background-color: white;
+    cursor: pointer;
 }
 
-.view--podcast-detail .episode-panel > h4 {
+.view--podcast-detail .episode-item.active {
+    position: sticky;
+    top: 0;
+    box-shadow: 0px 20px 10px -20px #5f5f5f, 0px -20px 10px -20px #5f5f5f;
+}
+
+.view--podcast-detail .episode-item > .heading {
+    min-height: inherit;
+    border-top: 1px solid #5f5f5f;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+}
+
+.view--podcast-detail .episode-item.active + .episode-item > .heading,
+.view--podcast-detail .episode-item:first-child > .heading {
+    border-top-color: transparent;
+}
+
+.view--podcast-detail .episode-item > .heading > h4 {
+    margin: 0;
     font-weight: 700;
 }
 
-.view--podcast-detail .episode-panel:first-child {
-    border-color: transparent;
+.view--podcast-detail .episode-item > .heading > .run-time,
+.view--podcast-detail .episode-item > .heading > .episode-collapse {
+    margin-left: auto;
 }
 
-.view--podcast-detail .episode-panel:hover {
-    background-color: lightgray;
+.view--podcast-detail .episode-item.active > .heading > .run-time {
+    display: none;
+}
+
+.view--podcast-detail .episode-item > .heading > .episode-collapse {
+    display: none;
+    width: 24px;
+    height: 24px;
+}
+.view--podcast-detail .episode-item.active > .heading > .episode-collapse {
+    display: unset;
+}
+
+.view--podcast-detail .episode-item > .details {
+    position: relative;
+    min-height: 0;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: min-height 1s ease-out,
+                visibility 0s linear 1s;
+    padding: 0 1em;
+}
+
+.view--podcast-detail .episode-item > .episode-loader {
+    display: none;
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    align-self: center;
+    left: calc(50% - 40px);
+}
+
+.view--podcast-detail .episode-item.active > .episode-loader {
+    display: flex;
+}
+
+.view--podcast-detail .episode-item > .episode-loader.hidden {
+    display: none;
+}
+
+.view--podcast-detail .episode-item.active > .details {
+    min-height: 150px;
+    overflow: visible;
+    visibility: visible;
+}
+
+.view--podcast-detail .episode-list > .episode-item:not(.active):hover > .heading {
+    background-color: #5f5f5f;
+}
+
+.view--podcast-detail .episode-list > .episode-item:not(.active):hover > .heading > * {
+    color: white;
+}
+
+.view--podcast-detail .episode-item > .details > .audio-player {
+    display: flex;
+    height: 36px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #5f5f5f;
+    align-items: center;
+}
+
+.audio-player-button {
+    position: relative;
+    display: flex;
+    height: 36px;
+    width: 36px;
+    padding: 0 0.25em;
+    align-items: center;
+    justify-content: center;
+}
+
+.audio-player-button > svg {
+    height: 28px;
+    width: 28px;
+    color: white;
+}
+
+.audio-player-button:hover {
+    background-color: #77ad9b;
+}
+
+.view--podcast-detail .episode-item > .details > .audio-player > .volume-controls {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 36px;
+}
+
+
+.episode-item > .details > .audio-player > .volume-controls > .volume-slider {
+    -webkit-appearance: none;
+    background-color: #5f5f5f;
+    outline: none;
+    position: absolute;
+    top: -1em;
+    left: 50%;
+    display: block;
+    height: 1px;
+    margin: 0.25em 0;
+    transform: rotateZ(-90deg);
+    transform-origin: 0 0;
+}
+
+.slide-wrapper {
+    display: flex;
+    align-items: center;
+    height: 36px;
+    background-color: #5f5f5f;
+    padding: 0;
+    cursor: initial;
+}
+
+.volume-controls > .slide-wrapper {
+    position: absolute;
+    width: 0;
+    top: -50%;
+    left: 50%;
+    transform-origin: 0 50%;
+    transform: rotateZ(-90deg);
+    z-index: 100;
+    border-top-right-radius: 0.25em;
+    border-bottom-right-radius: 0.25em;
+    overflow: hidden;
+    transition-property: width, padding;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-out;
+}
+
+.volume-controls > .audio-player-button:hover + .slide-wrapper,
+.volume-controls > .slide-wrapper:hover {
+    width: 60px;
+    padding: 0 6px;
+}
+
+.slide-wrapper > .volume-slider {
+    -webkit-appearance: none;
+    height: 1px;
+    width: 100%;
+    outline: none;
+}
+
+.slide-wrapper > .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 5px;
+    height: 20px;
+    background: #77ad9b;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.slide-wrapper > .volume-slider::-moz-range-thumb {
+    width: 5px;
+    height: 20px;
+    background: #77ad9b;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.seek-controls {
+    display: flex;
+    flex-basis: 100%;
+    height: 36px;
+    /* padding: 0 1em; */
+}
+
+.seek-controls > .slide-wrapper {
+    flex-basis: 100%;
+}
+
+.seek-controls .slider {
+    -webkit-appearance: none;
+    outline: none;
+    width: 100%;
+    height: 8px;
+    align-self: flex-end;
+    margin: 0;
+    transition: height 0.5s ease-out;
+}
+
+.seek-controls > .seek-display {
+    position: absolute;
+    top: 6px;
+    font-weight: 400;
+    color: white;
+    font-size: 0.85em;
+    padding: 0 0.5em;
+    transition: font-size 0.5s ease-out;
+}
+
+.seek-controls > .seek-display:last-child {
+    right: 0;
+}
+
+.seek-controls:hover > .seek-display {
+    font-size: 0.65em;
+}
+
+.seek-controls:hover .slider {
+    height: 12px;
+}
+
+.slide-wrapper > .seek-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 16px;
+    width: 5px;
+    background: #77ad9b;
+    border-radius: 4px;
+    cursor: pointer;
+    transition-property: height;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-out;
+}
+
+.slide-wrapper > .seek-slider::-moz-range-thumb {
+    height: 16px;
+    width: 5px;
+    background: #77ad9b;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.slide-wrapper > .seek-slider::-webkit-slider-thumb:hover {
+    height: 24px;
+}
+
+.slide-wrapper > .seek-slider::-moz-range-thumb:hover {
+    height: 24px;
 }
