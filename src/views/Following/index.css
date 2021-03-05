@@ -1,0 +1,8 @@
+.view--following {
+    margin-top: 2em;
+}
+
+.view--following .loader {
+    margin-top: 100px;
+    text-align: center;
+}

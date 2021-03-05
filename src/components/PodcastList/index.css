@@ -48,35 +48,26 @@
 
 .search-results-item > .description h4 {
     margin: 0 auto 0.25em;
-    border-bottom: 1px dashed #3a3a3a;
     font-weight: bold;
 }
 
-.search-results-item > .info-icon-wrapper {
+.search-results-item > .action-container {
     position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     bottom: 0;
-    right: 0;
-    height: 0;
-    width: 0;
+    right: 0.5em;
+    background-color: white;
+    border-top-right-radius: 0.35em;
+    border-top-left-radius: 0.35em;
     pointer-events: none;
 }
 
-.search-results-item > .info-icon-wrapper > .info-icon-bg {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    height: 0;
-    width: 0;
-    border: 20px solid white;
-    border-top-color: transparent;
-    border-left-color: transparent;
-    pointer-events: none;
-}
-
-.search-results-item > .info-icon-wrapper > .info-icon  {
-    position: absolute;
-    bottom: 4px;
-    right: 4px;
+.search-results-item > .action-container > .action-btn  {
+    height: 16px;
+    width: 16px;
+    padding: 0.35em;
     pointer-events: auto;
     cursor: pointer;
 }

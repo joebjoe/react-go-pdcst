@@ -6,9 +6,16 @@
 }
 
 section.view--podcast-detail h2.podcast-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     text-align: left;
     font-size: 2em;
     font-weight: 700;
+}
+
+section.view--podcast-detail h2.podcast-title > .action-container {
+    margin-left: auto;
 }
 
 .podcast-detail-grid {
@@ -40,6 +47,8 @@ section.view--podcast-detail h2.podcast-title {
 }
 
 .podcast-detail-sidebar > .description .desc-title > svg.desc-close {
+    height: 30px;
+    width: 30px;
     margin-left: auto;
 }
 
@@ -325,8 +334,8 @@ section.view--podcast-detail h2.podcast-title {
 
 @media screen and (max-width: 799px) {
     .podcast-detail-grid {
-        grid-template-columns: 100px 1fr;
-        grid-template-rows: 100px 1fr;
+        grid-template-columns: 120px 1fr;
+        grid-template-rows: 120px 1fr;
     }
 
     .podcast-detail-sidebar {
@@ -348,6 +357,7 @@ section.view--podcast-detail h2.podcast-title {
         bottom: 5em;
         z-index: 1000;
         overflow: hidden;
+        text-align: justify;
     }
     
     .podcast-detail-sidebar > .description.show {
@@ -384,11 +394,25 @@ section.view--podcast-detail h2.podcast-title {
         display: flex;
     }
 
-    .podcast-title {
-        grid-row: 1 /2;
+    section.view--podcast-detail h2.podcast-title {
+        grid-row: 1 / 2;
         grid-column: 2 / 3;
         word-wrap: break-word;
+        font-size: 1.5em;
     }
+    
+    section.view--podcast-detail h2.podcast-title > .break {
+        flex-basis: 100%;
+        height: 0;
+    }
+
+    section.view--podcast-detail h2.podcast-title > .action-container {
+        margin-left: 0;
+    }
+    section.view--podcast-detail h2.podcast-title > .action-container > .action-btn:first-child {
+        padding-left: 0;
+    }
+
     ul.episode-list {
         grid-row-start: 2;
         grid-column: 1 / 3;
@@ -424,7 +448,7 @@ section.view--podcast-detail h2.podcast-title {
     }
 
     .view--podcast-detail .episode-list > .episode-item:not(.active):hover > .heading {
-        background-color: #5f5f5f;
+        background-color: #77ad9b;
     }
     
     .view--podcast-detail .episode-list > .episode-item:not(.active):hover > .heading > * {

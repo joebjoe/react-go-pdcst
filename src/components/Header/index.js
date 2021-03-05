@@ -2,6 +2,7 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 import NavBtn from "../NavBtn";
 import Nav, { navRoute } from "../Nav";
+import { SearchIcon, FollowingIcon, AboutIcon } from '../../common';
 import './index.css'; 
 
 class Header extends Component {
@@ -38,9 +39,9 @@ class Header extends Component {
                     className={this.state.show_nav ? 'active' : ''}
                     onClick={this.closeNav}
                     routes={[
-                        navRoute("Explore", "/"),
-                        navRoute("Library"),
-                        navRoute("About"),
+                        navRoute(SearchIcon, ""),
+                        navRoute(FollowingIcon, "following"),
+                        navRoute(AboutIcon, "about"),
                     ]}
                 />
             </header>

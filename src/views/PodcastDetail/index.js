@@ -2,7 +2,7 @@ import './index.css';
 import { Component, createRef } from 'react';
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
-import { get_url, isInViewport } from '../../common';
+import { get_url, isInViewport, CloseIcon } from '../../common';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import View from '../../components/View';
@@ -14,7 +14,7 @@ import {
   BsVolumeMute as MuteBtn, 
   BsArrowsCollapse as CollapseBtn
  } from 'react-icons/bs';
-import { GrClose } from 'react-icons/gr';
+import ActionContainer from '../../components/ActionContainer';
 
 const runTime = sec => {
   const h = Math.floor(sec / 60 / 60);
@@ -37,6 +37,7 @@ class Podcast extends Component {
       ep_refs: [],
       searching: false,
       volume: 0,
+      showInfoButton: false,
     };
 
     this.setPodcastData = podcast => {
@@ -188,6 +189,14 @@ class Podcast extends Component {
       desc.classList.remove('show');
     }
 
+    this.handleInfoButton = () => {
+      const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+      console.log({vw})
+      this.setState(() => {
+        return { showInfoButton: vw < 800 }
+      })
+    }
+
     this.renderLoaderOrContent = podcast => {
       if (!podcast) {
         return (
@@ -196,7 +205,11 @@ class Podcast extends Component {
       }
       return (
         <div className="podcast-detail-grid">
-          <h2 className="podcast-title">{podcast.title}</h2>
+          <h2 className="podcast-title">
+            {podcast.title}
+            <div className="break"></div>
+            <ActionContainer followid={podcast.id} onInfoClick={this.state.showInfoButton && this.showPodcastDescription} />
+          </h2>
           <div className="podcast-detail-sidebar">
             <img
               src={podcast.image}
@@ -208,10 +221,10 @@ class Podcast extends Component {
               <div className="desc-inner">
                 <h4 className="desc-title">
                   {podcast.title}
-                  <GrClose
+                  <CloseIcon
                     className="desc-close"
                     onClick={this.hidePodcastDescription}
-                    color="red"
+                    color="#5f5f5f"
                   />
                 </h4>
                 <div dangerouslySetInnerHTML={{__html: podcast.description}}></div>
@@ -232,7 +245,7 @@ class Podcast extends Component {
                     <CollapseBtn className="episode-collapse" onClick={this.handleEpisodeClose(i)} />
                   </div>
                   <div className="details">
-                    <Loader className="episode-loader" type="Audio" color="#3a3a3a" />
+                    <Loader className="episode-loader" type="Audio" color="#5f5f5f" />
                     <div className="description" dangerouslySetInnerHTML={{__html: episode.description}}></div>
                     <div className="audio-player" onTransitionEnd={this.handleEpisodeLoader}>
                       <audio
@@ -277,7 +290,7 @@ class Podcast extends Component {
                           />
                         </div>
                         <div className="seek-display">
-                          {runTime(episode.audio_length_sec)}
+                          {runTime(episode.audio_length_sec - (audio && audio.currentTime.toFixed() || 0))}
                         </div>
                       </div>
                     </div>
@@ -293,11 +306,15 @@ class Podcast extends Component {
 
   componentDidMount() {
     this.getPodcastData();
-    
+    this.handleInfoButton();
+    window.addEventListener('resize', this.handleInfoButton)
     window.addEventListener('scroll', this.handleInfiniteScroll);
   }
+
+
   
   componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleInfoButton);
     window.removeEventListener('scroll', this.handleInfiniteScroll);
   }
   render() {

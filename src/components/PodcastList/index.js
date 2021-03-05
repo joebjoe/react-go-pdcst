@@ -1,9 +1,8 @@
+import './index.css';
 import { Component, createRef } from 'react';
 import { Link } from 'react-router-dom';
-import './index.css';
-import { GrDown } from 'react-icons/gr';
-import { GoInfo } from 'react-icons/go';
-import { MdArrowUpward } from 'react-icons/md';
+import { UpArrow, DownArrowChevron } from '../../common';
+import ActionContainer from '../ActionContainer';
 
 class List extends Component {
     constructor(props) {
@@ -42,7 +41,7 @@ class List extends Component {
             } else if (jumpToTop.style.display) {
                 jumpToTop.style.display = ""
             }
-            if (scrollHeight - scrollTop - clientHeight <= this.state.gridItemHeight) {
+            if (this.props.onScroll && scrollHeight - scrollTop - clientHeight <= this.state.gridItemHeight) {
                 this.props.onScroll();
             }
         }
@@ -94,24 +93,21 @@ class List extends Component {
                                 >
                                     <img src={result.image} />
                                 </Link>
-                                <div
-                                    className="info-icon-wrapper"
-                                    style={{ top: `${this.state.gridItemHeight}px`}}
-                                >
-                                    <div className="info-icon-bg"></div> {/* can't wrap the icon as we won't be able to point to the description on icon hover is css */}
-                                    <GoInfo className={`info-icon`} onClick={this.toggleActiveRef(i)}/>
-                                </div>
+                                <ActionContainer
+                                    followid={result.id}
+                                    onInfoClick={ this.toggleActiveRef(i) }
+                                />
                                 <div className="description">
                                     <h4>
                                         {result.title_original}
-                                        <GrDown className="description-collapse" onClick={this.toggleActiveRef(i)}/>
+                                        <DownArrowChevron className="description-collapse" onClick={this.toggleActiveRef(i)}/>
                                     </h4>
                                     <div dangerouslySetInnerHTML={{__html: result.description_original}}></div>
                                 </div>
                             </li>
                         )
                     })}
-                    <MdArrowUpward className="jump-to-top" onClick={this.jumpToTop} />
+                    <UpArrow className="jump-to-top" onClick={this.jumpToTop} />
                 </ul>
             </div>
         )

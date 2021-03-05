@@ -1,9 +1,8 @@
 import './index.css'
 import { Component } from 'react'
-import { BiSearchAlt as SearchIcon } from 'react-icons/bi';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { get_url } from '../../common';
+import { get_url, SearchIcon } from '../../common';
 
 class Search extends Component {
     constructor(props) {
@@ -13,7 +12,7 @@ class Search extends Component {
             focus: false,
         }
         this.handleFocus = () => {
-            const textElem = document.querySelector('input.search--text');
+            const textElem = document.querySelector('input.search-text');
             this.setState(() => {
                 return {focus: textElem == document.activeElement}
             })
@@ -40,12 +39,12 @@ class Search extends Component {
             if (!this.state.focus || !this.state.results.length) return;
             
             return (
-                <ul className="results--typeahead">
+                <ul className="results-typeahead">
                 {this.state.results.map((result, i) => {
                     return (
                         <li
                             key={i}
-                            className="result--typeahead"
+                            className="result-typeahead"
                         >
                             <Link to={`podcasts/${result.id}`}>
                                 <img src={result.thumbnail} />{result.title_original}
@@ -59,7 +58,7 @@ class Search extends Component {
         this.submit = e => {
             e.preventDefault();
             this.setTypeaheadResults();
-            let textElem = document.querySelector('input.search--text');
+            let textElem = document.querySelector('input.search-text');
             this.props.onSubmit({
                 q: textElem.value,
             });
@@ -91,16 +90,16 @@ class Search extends Component {
                     onSubmit={this.submit}
                 >
                     <button
-                        className="search--icon-wrapper"
+                        className="search-icon-wrapper"
                         type="submit"
                     >
-                        <SearchIcon className="search--icon" />
+                        <SearchIcon color="#5f5f5f" className="search-icon" />
                     </button>
                     <input
-                        className="search--text"
+                        className="search-text"
                         type="text"
                         placeholder={this.props.placeholder}
-                        onChange={this.handleTypeahead}
+                        // onChange={this.handleTypeahead}
                     />
                 </form>
                 {this.renderTypeaheadResults()}

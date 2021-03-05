@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -25,7 +26,7 @@ func handle(path string) HandleFunc {
 	path = formattedHandlerPath(path)
 	return func(grp *gin.RouterGroup, s *Server) {
 		grp.GET(path, func(ctx *gin.Context) {
-			resp, err := s.doRequest(ctx)
+			resp, err := s.doRequest(ctx.Request.URL)
 			if isErred(ctx, err) {
 				return
 			}
@@ -34,11 +35,37 @@ func handle(path string) HandleFunc {
 	}
 }
 
-func (s *Server) doRequest(ctx *gin.Context) (interface{}, error) {
+func handleGetFollowing(grp *gin.RouterGroup, s *Server) {
+	grp.GET(formattedHandlerPath("following"), func(ctx *gin.Context) {
+		podcasts := []interface{}{}
+		defer func() {
+			ctx.JSON(http.StatusOK, gin.H{
+				"podcasts": podcasts,
+			})
+		}()
+
+		qsPIDs, found := ctx.GetQuery("pids")
+		if !found {
+			return
+		}
+		pids := strings.Split(qsPIDs, ",")
+		for _, pid := range pids {
+			u := *ctx.Request.URL
+			u.Path = fmt.Sprintf("/podcasts/%s", pid)
+			pdcst, err := s.doRequest(&u)
+			if isErred(ctx, err) {
+				return
+			}
+			podcasts = append(podcasts, pdcst)
+		}
+	})
+}
+
+func (s *Server) doRequest(u *url.URL) (interface{}, error) {
 	//dereferencing to not mutate the host address
 	reqURL := *s.hostURL
-	reqURL.Path = reqURL.Path + strings.TrimPrefix(ctx.Request.URL.Path, basePath)
-	reqURL.RawQuery = ctx.Request.URL.RawQuery
+	reqURL.Path = reqURL.Path + strings.TrimPrefix(u.Path, basePath)
+	reqURL.RawQuery = u.RawQuery
 	req, err := http.NewRequest(http.MethodGet, reqURL.String(), nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating request: %v", err)

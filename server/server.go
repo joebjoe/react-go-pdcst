@@ -21,6 +21,7 @@ var handlers = []HandleFunc{
 	handle("podcasts/:id"),
 	handle("typeahead"),
 	handle("search"),
+	handleGetFollowing,
 }
 
 // Server for serving fromend SPA and for acting as middleware between client and the third-party api

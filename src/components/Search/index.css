@@ -6,6 +6,12 @@
 .search-wrapper, .search-wrapper * {
     line-height: initial;
 }
+
+.search-wrapper .search-text,
+.search-wrapper .results-typeahead {
+    text-align: left;
+}
+
 .search > * {
     display: inline-flex;
 }
@@ -21,21 +27,22 @@
     box-shadow: 0 0 3px rgba(0,0,0,0.5);
 }
 
-.search--text {
+.search-text {
     outline: none;
     border: none;
     flex: 1;
     height: 30px;
     height: var(--search-height, 30px);
-    font-size: calc(var(--search-height) / 2);
+    font-size: 30px;
+    width: 100%;
 }
 
-.search--icon-wrapper {
+.search-icon-wrapper {
     height: 27px;
     width: 27px;
     height: calc(var(--search-height, 30px) * .9);
     width: calc(var(--search-height, 30px) * .9);
-    margin: 0 10px;
+    margin: 0 4px;
     justify-content: center;
     border-radius: 50%;
     background: none;
@@ -44,32 +51,32 @@
     cursor: pointer;
 }
 
-.search--icon {
+.search-icon {
     width: 67%;
     height: 67%;
     align-self: center;
 }
 
-.search--icon-wrapper:hover {
+.search-icon-wrapper:hover {
     background-color: lightgray;
 }
 
-ul.results--typeahead {
+ul.results-typeahead {
     list-style: none;
     margin: 0;
     margin-top: 3px;
     padding: 0;
 }
 
-li.result--typeahead {
+li.result-typeahead {
     border-top: 1px solid;
 }
 
-li.result--typeahead {
+li.result-typeahead {
     position: relative;
 }
 
-li.result--typeahead::after {
+li.result-typeahead::after {
     content: '';
     position: absolute;
     top: 0;
@@ -79,11 +86,11 @@ li.result--typeahead::after {
     background-color: rgba(255,255,255,0.5);
 }
 
-li.result--typeahead:hover::after {
+li.result-typeahead:hover::after {
     content: unset;
 }
 
-li.result--typeahead > a {
+li.result-typeahead > a {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -96,12 +103,14 @@ li.result--typeahead > a {
     border-bottom: none;
 }
 
-li.result--typeahead > a > img {
+li.result-typeahead > a > img {
     height: 100%;
     margin-right: 1em;
     border-radius: 0.5em;
 }
 
-.search--text {
-    font-size: calc(var(--search-height) / 3);
+@media screen and (max-width: 799px) {
+    .search-text {
+        font-size: 24px;
+    }
 }

@@ -3,10 +3,11 @@ import { NavLink } from 'react-router-dom';
 
 const stringPath = path => `/${path}`.toLowerCase();
 
-export function navRoute(name, path) {
+export function navRoute(icon, path) {
+  if (path === undefined) throw("invalid navRoute - path cannot be empty");
   return {
-    name: name,
-    path: path === undefined ? stringPath(name) : typeof(path) === typeof(String) ? stringPath(path) : path,
+    icon: icon,
+    path: stringPath(path),
   }
 }
 
@@ -14,17 +15,20 @@ export default function(props) {
   return (
     <nav className={props.className}>
       <ul>
-        {props.routes.map(route => (
-          <li key={route.name}>
-            <NavLink
-              exact
-              to={route.path}
-              onClick={props.onClick}
-            >
-              {route.name}
-            </NavLink>
-          </li>
-        ))}
+        {props.routes.map((route, i) => {
+          const Icon = route.icon
+          return (
+            <li key={i}>
+              <NavLink
+                exact
+                to={route.path}
+                onClick={props.onClick}
+              >
+                <Icon className="nav-icon" />
+              </NavLink>
+            </li>
+          )
+        })}
       </ul>
     </nav>
   )
