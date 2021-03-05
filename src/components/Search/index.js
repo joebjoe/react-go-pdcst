@@ -99,7 +99,7 @@ class Search extends Component {
                         className="search-text"
                         type="text"
                         placeholder={this.props.placeholder}
-                        // onChange={this.handleTypeahead}
+                        onChange={this.handleTypeahead}
                     />
                 </form>
                 {this.renderTypeaheadResults()}
