@@ -33,7 +33,6 @@ class FollowBtn extends Component {
 
             localStorage.setItem(following_storage_key, JSON.stringify(following));
             this.forceUpdate();
-            console.log(getFollowing());
         }
     }
 

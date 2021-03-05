@@ -1,7 +1,7 @@
 import './index.css';
 import { Component, createRef } from 'react';
 import { Link } from 'react-router-dom';
-import { UpArrow, DownArrowChevron } from '../../common';
+import { UpArrow, DownArrowChevron, isInViewport } from '../../common';
 import ActionContainer from '../ActionContainer';
 
 class List extends Component {
@@ -13,7 +13,7 @@ class List extends Component {
         }
 
         this.setGridItemHeight = () => {
-            const firstItem = document.querySelector('li.search-results-item');
+            const firstItem = document.querySelector('li.podcast-list-item');
             this.setState(() => {
                 return { gridItemHeight: firstItem.clientWidth }
             })
@@ -32,7 +32,7 @@ class List extends Component {
         }
 
         this.handleInfiniteScroll = e => {
-            const {clientHeight, scrollHeight, scrollTop} = e.target.scrollingElement
+            const { scrollTop } = e.target.scrollingElement
             const jumpToTop = document.querySelector('.jump-to-top');
             if (scrollTop > this.state.gridItemHeight*2) {
                 if (!jumpToTop.style.display) {
@@ -41,7 +41,8 @@ class List extends Component {
             } else if (jumpToTop.style.display) {
                 jumpToTop.style.display = ""
             }
-            if (this.props.onScroll && scrollHeight - scrollTop - clientHeight <= this.state.gridItemHeight) {
+            const el = document.querySelector('ul.podcast-list').lastChild
+            if (this.props.onScroll && isInViewport(el)) {
                 this.props.onScroll();
             }
         }
@@ -77,7 +78,7 @@ class List extends Component {
         return (
             <div>
                 <ul
-                    className="search-results-list"
+                    className="podcast-list"
                     style={{ gridAutoRows: `${this.state.gridItemHeight}px`}}
                 >
                     {this.props.results.map((result, i) => {
@@ -85,7 +86,7 @@ class List extends Component {
                             <li
                                 key={i}
                                 ref={this.state.refs[i]}
-                                className="search-results-item"
+                                className="podcast-list-item"
                             >
                                 <Link
                                     className="card"
@@ -99,10 +100,10 @@ class List extends Component {
                                 />
                                 <div className="description">
                                     <h4>
-                                        {result.title_original}
+                                        { result.title_original || result.title }
                                         <DownArrowChevron className="description-collapse" onClick={this.toggleActiveRef(i)}/>
                                     </h4>
-                                    <div dangerouslySetInnerHTML={{__html: result.description_original}}></div>
+                                    <div dangerouslySetInnerHTML={{__html: result.description_original || result.description}}></div>
                                 </div>
                             </li>
                         )

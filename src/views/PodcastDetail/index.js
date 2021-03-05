@@ -2,7 +2,7 @@ import './index.css';
 import { Component, createRef } from 'react';
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
-import { get_url, isInViewport, CloseIcon } from '../../common';
+import { strippedText, get_url, isInViewport, CloseIcon } from '../../common';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import View from '../../components/View';
@@ -103,7 +103,11 @@ class Podcast extends Component {
     }
 
     this.handleEpisodeOpen = i => e => {
-      this.state.ep_refs[i].current.classList.add('active');
+      const li = this.state.ep_refs[i].current;
+      const details = li.querySelector('.details');
+      details.style.height = `${details.scrollHeight}px`;
+
+      li.classList.add('active');
       
       this.state.ep_refs.forEach((_, idx) => {
         if (idx == i) return;
@@ -114,11 +118,15 @@ class Podcast extends Component {
 
     this.handleEpisodeClose = i => e => {
       e.stopPropagation();
+      
+      const li = this.state.ep_refs[i].current;
+      const details = li.querySelector('.details');
+      details.style.height = '';
+
       this.state.ep_refs[i].current.classList.remove('active');
     }
 
     this.togglePlayerState = i => e => {
-      // e.stopPropagation();
       const audio = this.getAudioPlayer(i);
       if (audio.paused) {
         audio.play();
@@ -191,7 +199,6 @@ class Podcast extends Component {
 
     this.handleInfoButton = () => {
       const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-      console.log({vw})
       this.setState(() => {
         return { showInfoButton: vw < 800 }
       })
@@ -236,7 +243,7 @@ class Podcast extends Component {
               const audio = this.getAudioPlayer(i)
               const PlayerBtn = audio && !audio.paused ? PauseBtn : PlayBtn;
               const PlayerVolume = !audio || audio.volume * 100 > 50 ? VolUpBtn : audio.volume ? VolDwnBtn : MuteBtn;
-
+              
               return (
                 <li key={i} ref={this.state.ep_refs[i]} className="episode-item">
                   <div className="heading"  onClick={this.handleEpisodeOpen(i)}>
@@ -246,7 +253,7 @@ class Podcast extends Component {
                   </div>
                   <div className="details">
                     <Loader className="episode-loader" type="Audio" color="#5f5f5f" />
-                    <div className="description" dangerouslySetInnerHTML={{__html: episode.description}}></div>
+                    <div className="description" dangerouslySetInnerHTML={{__html: strippedText(episode.description)}}></div>
                     <div className="audio-player" onTransitionEnd={this.handleEpisodeLoader}>
                       <audio
                         src={episode.audio}

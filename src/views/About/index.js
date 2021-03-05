@@ -13,8 +13,9 @@ export default function() {
       <p><span className="section-label">Golang</span> I have a fair amount of experience programming in Go, however coming from an enterprise
       shop we have teams dedicated to devloping tools that generate much of the boilerplate code for our micro-services. My goal in 
       implementing the server handlers for this project was to <strong><em>not</em></strong> reinvent the wheel, but in essence come up with an
-      MVP that was easily repeatable and well-organized. This could definitely be optimized by replacing with something like an rpc
-      framework.</p>
+      MVP that was easily repeatable and well-organized. In the end, all routes simply wound up being pass-throughs to the thrid-party api, and I 
+      only deviated from that pattern as needed due to it's limitations (i.e. there is no call to get a batch of podcasts by id in the free version
+      of the api, so I passed these ids from the clientside and compiled the results of individual get calls to then return back to the clientside.). </p>
 
       <p><span className="section-label">React</span> Full disclosure - I've never worked in React before. This was very much a learning
       experience. I'm much more comfortable working in Vue, but I enjoyed the challenge. I found it to be very powerful, and flexible

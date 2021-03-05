@@ -3,7 +3,7 @@
   --main-height: calc((var(--vh, 1vh) * 100) - (72px + 30px + 2em + (0.83em * 1.5))); /* subtract header height + footer height + footer padding + main > h2 margin-top */
 }
 
-* {
+div, section, span, p, a, input {
   font-family: 'Spartan', sans-serif;
   line-height: 1.6;
   font-weight: 300;
@@ -27,7 +27,6 @@ html, body {
 
 a {
   text-decoration: none;
-  /* color: initial; */
   font-weight: 400;
 }
 

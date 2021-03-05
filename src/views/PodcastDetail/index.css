@@ -21,7 +21,7 @@ section.view--podcast-detail h2.podcast-title > .action-container {
 .podcast-detail-grid {
     position: relative;
     display: grid;
-    grid-template: 100px 1fr / 300px 1fr;
+    grid-template: 100px 1fr / 300px calc(100% - 300px - 1.5em);
     grid-gap: 1.5em;
     padding: 1em 0;
 }
@@ -56,6 +56,7 @@ section.view--podcast-detail h2.podcast-title > .action-container {
     margin: 0;
     padding: 0;
     list-style-type: none;
+    max-width: 100%;
 }
 .view--podcast-detail .episode-item {
     min-height: 75px;
@@ -110,30 +111,26 @@ section.view--podcast-detail h2.podcast-title > .action-container {
     display: flex;
     flex-direction: column;
     position: relative;
-    min-height: 0;
     height: 0;
     overflow: hidden;
-    transition: min-height 1s ease-out,
+    transition: height 1s ease-out,
                 overflow 0s linear 1s;
-}
-
-.view--podcast-detail .episode-item.active > .details {
-    min-height: 200px;
 }
 
 .view--podcast-detail .episode-item > .details > .description,
 .view--podcast-detail .episode-item > .details > .audio-player {
     visibility: hidden;
-    transition: visibility 0s linear 1s;
+    transition: visibility 0s linear;
 }
 
 .view--podcast-detail .episode-item.active > .details > .description,
 .view--podcast-detail .episode-item.active > .details > .audio-player {
     visibility: visible;
+    transition: visibility 0s linear 1s;
 }
 
 .view--podcast-detail .episode-item .description {
-    padding: 0 1em;
+    padding: 1em;
 }
 
 .view--podcast-detail .episode-item .episode-loader {

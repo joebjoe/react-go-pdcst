@@ -1,4 +1,4 @@
-.search-results-list {
+.podcast-list {
     display: grid;
     margin: 0;
     padding: 0;
@@ -8,7 +8,7 @@
     grid-gap: 2em;
 }
 
-.search-results-item {
+.podcast-list-item {
     position: relative;
     border-radius: 0.5em;
     overflow: hidden;
@@ -16,13 +16,13 @@
     
 }
 
-.search-results-item a {
+.podcast-list-item a {
     border-bottom: none;
     position: relative;
     display: flex;
 }
 
-.search-results-item > .description {
+.podcast-list-item > .description {
     position: absolute;
     bottom: -1em;
     left: 0;
@@ -39,19 +39,19 @@
     overflow-y: scroll;
 }
 
-.search-results-item.active > .description {
+.podcast-list-item.active > .description {
     box-shadow: 0 0 20px -5px rgba(0,0,0,0.5);
     bottom: 0;
     padding: 0 1em 1em;
     height: calc(75% - 2em);
 }
 
-.search-results-item > .description h4 {
+.podcast-list-item > .description h4 {
     margin: 0 auto 0.25em;
     font-weight: bold;
 }
 
-.search-results-item > .action-container {
+.podcast-list-item > .action-container {
     position: absolute;
     display: flex;
     align-items: center;
@@ -64,7 +64,7 @@
     pointer-events: none;
 }
 
-.search-results-item > .action-container > .action-btn  {
+.podcast-list-item > .action-container > .action-btn  {
     height: 16px;
     width: 16px;
     padding: 0.35em;
@@ -72,23 +72,23 @@
     cursor: pointer;
 }
 
-.search-results-item .description-collapse {
+.podcast-list-item .description-collapse {
     float: right;
     cursor: pointer;
 }
 
-.search-results-item > .description > div {
+.podcast-list-item > .description > div {
     font-size: 0.85em;
     text-align: left;
     word-wrap: break-word;
 }
 
-.search-results-item a > img {
+.podcast-list-item a > img {
     min-height: 100%;
     min-width: 100%;
 }
 
-.search-results-list > .jump-to-top {
+.podcast-list > .jump-to-top {
     display: none;
     position: fixed;
     top: 1em;
@@ -107,13 +107,13 @@
 }
 
 @media screen and (max-width: 799px) {
-    .search-results-list {
+    .podcast-list {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media screen and (max-width: 449px) {
-    .search-results-list {
+    .podcast-list {
         grid-template-columns: 1fr;
     }
 }

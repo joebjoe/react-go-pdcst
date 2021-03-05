@@ -10,6 +10,7 @@ import { IoClose as CloseIcon } from "react-icons/io5";
 import { GrDown as DownArrowChevron } from 'react-icons/gr';
 import { MdArrowUpward as UpArrow } from 'react-icons/md';
 
+const strippedText = text => text.replace(/(<([^>]+)>)/gi, "");
 
 const get_url = (path, data, verbose) => {
     let query = data ? Object.entries(data).filter(e => e[1]).map(e => `${e[0]}=${e[1]}`).join('&') : null;
@@ -37,7 +38,8 @@ const  isInViewport = element => {
     );
 }
 
-export { 
+export {
+    strippedText,
     get_url,
     isInViewport,
     following_storage_key,
