@@ -1,18 +1,24 @@
-import { BiSearchAlt as SearchIcon } from 'react-icons/bi';
 import {
+    BsSearch as SearchIcon,
     BsBookmarkCheck as FollowingIcon,
-    BsBookmark as FollowIcon
+    BsBookmark as FollowIcon,
+    BsBook as AboutIcon,
+    BsList as MenuIcon,
+    BsX as CloseIcon,
+    BsInfoCircle as InfoIcon, 
+    BsChevronDown as DownArrowChevron,
+    BsArrowUp as UpArrow,
+    BsArrowsCollapse as CollapseBtn,
+    BsPlay as PlayBtn,
+    BsPause as PauseBtn,
+    BsVolumeUp as VolUpBtn,
+    BsVolumeDown as VolDwnBtn,
+    BsVolumeMute as MuteBtn,
 } from 'react-icons/bs';
-import { CgReadme as AboutIcon } from 'react-icons/cg';
-import { GoInfo as InfoIcon } from 'react-icons/go';
-import { HiOutlineMenuAlt4 as MenuIcon } from 'react-icons/hi';
-import { IoClose as CloseIcon } from "react-icons/io5";
-import { GrDown as DownArrowChevron } from 'react-icons/gr';
-import { MdArrowUpward as UpArrow } from 'react-icons/md';
 
 const strippedText = text => text.replace(/(<([^>]+)>)/gi, "");
 
-const get_url = (path, data, verbose) => {
+const getURL = (path, data, verbose) => {
     let query = data ? Object.entries(data).filter(e => e[1]).map(e => `${e[0]}=${e[1]}`).join('&') : null;
     const url = `/api/v1/${path}${query ? '?' + query : ''}`;
     if (verbose) {
@@ -20,13 +26,6 @@ const get_url = (path, data, verbose) => {
     }
     return encodeURI(url)
 };
-
-const following_storage_key = 'PDCST_following';
-
-const getFollowing = () => {
-    let raw = localStorage.getItem(following_storage_key);
-    return JSON.parse(raw) || [];
-}
 
 const  isInViewport = element => {
     const rect = element.getBoundingClientRect();
@@ -40,10 +39,8 @@ const  isInViewport = element => {
 
 export {
     strippedText,
-    get_url,
+    getURL,
     isInViewport,
-    following_storage_key,
-    getFollowing,
     SearchIcon,
     FollowingIcon,
     FollowIcon,
@@ -53,4 +50,10 @@ export {
     CloseIcon,
     UpArrow,
     DownArrowChevron,
+    PlayBtn,
+    PauseBtn,
+    VolUpBtn,
+    VolDwnBtn,
+    MuteBtn,
+    CollapseBtn,
 };

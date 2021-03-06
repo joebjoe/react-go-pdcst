@@ -52,7 +52,7 @@ export default function() {
         </Switch>
       </main>
       <footer>
-        <small>View the {"</>"} on <a href="https://github.com/joebjoe/react-go-pdcst" target="_blank">Github</a></small>
+        <small>View the {"</>"} on <a className="external" href="https://github.com/joebjoe/react-go-pdcst" target="_blank">Github</a></small>
       </footer>
     </Router>
   )

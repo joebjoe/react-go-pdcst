@@ -4,7 +4,7 @@ import View from '../../components/View';
 import List from '../../components/PodcastList';
 import Search from '../../components/Search';
 import axios from 'axios';
-import { get_url } from '../../common';
+import { getURL } from '../../common';
 import { withRouter } from 'react-router-dom';
 
 class Explorer extends Component {
@@ -83,7 +83,7 @@ class Explorer extends Component {
       this.setSearching(true, () => {
         let {q, genre_ids, next_offset} = this.state.current_query;
         genre_ids = genre_ids && genre_ids.length ? genre_ids : undefined;
-        axios.get(get_url('search', {
+        axios.get(getURL('search', {
           q,
           offset: next_offset,
           genre_ids,

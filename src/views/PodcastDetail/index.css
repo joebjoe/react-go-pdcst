@@ -120,13 +120,12 @@ section.view--podcast-detail h2.podcast-title > .action-container {
 .view--podcast-detail .episode-item > .details > .description,
 .view--podcast-detail .episode-item > .details > .audio-player {
     visibility: hidden;
-    transition: visibility 0s linear;
+    transition: visibility 0s linear 1s;
 }
 
 .view--podcast-detail .episode-item.active > .details > .description,
 .view--podcast-detail .episode-item.active > .details > .audio-player {
     visibility: visible;
-    transition: visibility 0s linear 1s;
 }
 
 .view--podcast-detail .episode-item .description {

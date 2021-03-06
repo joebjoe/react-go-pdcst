@@ -57,7 +57,7 @@
     align-items: center;
     justify-content: center;
     bottom: 0;
-    right: 0.5em;
+    right: 0.75em;
     background-color: white;
     border-top-right-radius: 0.35em;
     border-top-left-radius: 0.35em;
@@ -65,9 +65,9 @@
 }
 
 .podcast-list-item > .action-container > .action-btn  {
-    height: 16px;
-    width: 16px;
-    padding: 0.35em;
+    height: 18px;
+    width: 18px;
+    padding: 0.25em;
     pointer-events: auto;
     cursor: pointer;
 }

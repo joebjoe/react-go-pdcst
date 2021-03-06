@@ -30,8 +30,13 @@ a {
   font-weight: 400;
 }
 
-a:not(header a) {
-  border-bottom: 1px dashed;
+a.external {
+  border-bottom: 1px dashed #5f5f5f;
+}
+
+a.external:hover {
+  color: #77ad9b;
+  border-bottom: 1px solid #77ad9b;
 }
 
 header {

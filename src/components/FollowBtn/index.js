@@ -1,5 +1,12 @@
 import { Component } from 'react';
-import { following_storage_key, getFollowing, FollowIcon, FollowingIcon } from '../../common';
+import { FollowIcon, FollowingIcon } from '../../common';
+
+const following_storage_key = 'PDCST_following';
+
+const getFollowing = () => {
+    let raw = localStorage.getItem(following_storage_key);
+    return JSON.parse(raw) || [];
+}
 
 class FollowBtn extends Component {
     constructor(props) {
@@ -54,4 +61,6 @@ class FollowBtn extends Component {
         )
     }
 }
+
+export { getFollowing }
 export default FollowBtn;

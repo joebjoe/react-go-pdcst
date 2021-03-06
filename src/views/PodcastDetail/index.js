@@ -2,30 +2,29 @@ import './index.css';
 import { Component, createRef } from 'react';
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
-import { strippedText, get_url, isInViewport, CloseIcon } from '../../common';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import View from '../../components/View';
 import { 
-  BsPlay as PlayBtn, 
-  BsPause as PauseBtn, 
-  BsVolumeUp as VolUpBtn, 
-  BsVolumeDown as VolDwnBtn, 
-  BsVolumeMute as MuteBtn, 
-  BsArrowsCollapse as CollapseBtn
- } from 'react-icons/bs';
+  strippedText,
+  getURL,
+  isInViewport,
+  CloseIcon,
+  PlayBtn, 
+  PauseBtn, 
+  VolUpBtn, 
+  VolDwnBtn, 
+  MuteBtn, 
+  CollapseBtn
+ } from '../../common';
 import ActionContainer from '../../components/ActionContainer';
 
 const runTime = sec => {
-  const h = Math.floor(sec / 60 / 60);
-  const m = Math.floor((sec - (h * 60 * 60)) / 60);
-  const s = Math.floor(sec % 60);
+  const hh = Math.floor(sec / 60 / 60).toString().padStart(2, "0");
+  const mm = Math.floor((sec - (hh * 60 * 60)) / 60).toString().padStart(2, "0");
+  const ss = Math.floor(sec % 60).toString().padStart(2, "0");
 
-  let runTime = `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
-  if (h > 0) {
-    runTime = `${h.toString().padStart(2,"0")}:${runTime}`;
-  }
-  return runTime;
+  return `${hh}:${mm}:${ss}`.replace(/^(00:)/,"");
 }
 
 class Podcast extends Component {
@@ -93,7 +92,7 @@ class Podcast extends Component {
           sort: 'recent_first'
         };
   
-        axios.get(get_url(`podcasts/${id}`, query)).then(({data, status}) => {
+        axios.get(getURL(`podcasts/${id}`, query)).then(({data, status}) => {
           this.setSearching(false);
           this.setPodcastData(data)
         }).catch(err => { console.log(err); })
@@ -103,7 +102,8 @@ class Podcast extends Component {
     }
 
     this.handleEpisodeOpen = i => e => {
-      const li = this.state.ep_refs[i].current;
+
+      const li = this.getRefElement(i);
       const details = li.querySelector('.details');
       details.style.height = `${details.scrollHeight}px`;
 
@@ -117,13 +117,12 @@ class Podcast extends Component {
     }
 
     this.handleEpisodeClose = i => e => {
-      e.stopPropagation();
       
-      const li = this.state.ep_refs[i].current;
+      const li = this.getRefElement(i);
       const details = li.querySelector('.details');
       details.style.height = '';
 
-      this.state.ep_refs[i].current.classList.remove('active');
+      li.classList.remove('active');
     }
 
     this.togglePlayerState = i => e => {
@@ -141,7 +140,6 @@ class Podcast extends Component {
     }
 
     this.handlePlayerVolumeClick = e => {
-      e.stopPropagation();
       this.state.ep_refs.forEach(ref => {
         const audio = ref.current.getElementsByTagName('audio')[0];
         const resetVal = ref.current.querySelector('input[type="range"]').value / 100;
@@ -162,12 +160,12 @@ class Podcast extends Component {
     }
 
     this.renderPlaybackChanges = i => e => {
-      const slider = this.getElementFromRef(i, '.seek-slider');
+      const slider = this.getRefElement(i, '.seek-slider');
       slider.value = e.target.currentTime;
       this.forceUpdate();
     }
 
-    this.getElementFromRef = (i, childSelector) => {
+    this.getRefElement = (i, childSelector) => {
       if (this.state.ep_refs[i] != null && this.state.ep_refs[i].current) {
         if (childSelector) {
           return this.state.ep_refs[i].current.querySelector(childSelector);
@@ -177,14 +175,21 @@ class Podcast extends Component {
     }
     
     this.getAudioPlayer = i => {
-      return this.getElementFromRef(i, 'audio');
+      return this.getRefElement(i, 'audio');
     }
 
-    this.handleEpisodeLoader = e => {
+    this.handleEpisodeLoader = i => e => {
       if (e.propertyName != 'visibility') return;
 
-      const loader = e.target.parentElement.querySelector('.episode-loader');
-      loader.classList.toggle('hidden');
+      const li = this.getRefElement(i);
+      const epIsActive = li.classList.contains('active');
+
+      const loader = li.querySelector('.episode-loader');
+      if (epIsActive) {
+        loader.classList.add('hidden');
+      } else {
+        loader.classList.remove('hidden');
+      }
     }
 
     this.showPodcastDescription = () => {
@@ -206,9 +211,7 @@ class Podcast extends Component {
 
     this.renderLoaderOrContent = podcast => {
       if (!podcast) {
-        return (
-          <Loader className="podcast-detail-loader" type="Audio" color="#3a3a3a" />
-        )
+        return <Loader className="podcast-detail-loader" type="Audio" color="#3a3a3a" />
       }
       return (
         <div className="podcast-detail-grid">
@@ -234,7 +237,7 @@ class Podcast extends Component {
                     color="#5f5f5f"
                   />
                 </h4>
-                <div dangerouslySetInnerHTML={{__html: podcast.description}}></div>
+                <div dangerouslySetInnerHTML={{__html: strippedText(podcast.description)}}></div>
               </div>
             </div>
           </div>
@@ -254,7 +257,7 @@ class Podcast extends Component {
                   <div className="details">
                     <Loader className="episode-loader" type="Audio" color="#5f5f5f" />
                     <div className="description" dangerouslySetInnerHTML={{__html: strippedText(episode.description)}}></div>
-                    <div className="audio-player" onTransitionEnd={this.handleEpisodeLoader}>
+                    <div className="audio-player" onTransitionEnd={this.handleEpisodeLoader(i)}>
                       <audio
                         src={episode.audio}
                         controlsList="nodownload"

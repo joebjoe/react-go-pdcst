@@ -2,7 +2,7 @@ import './index.css'
 import { Component } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { get_url, SearchIcon } from '../../common';
+import { getURL, SearchIcon } from '../../common';
 
 class Search extends Component {
     constructor(props) {
@@ -24,7 +24,7 @@ class Search extends Component {
         }
         this.handleTypeahead = e => {
           if (!e.target.value) return;
-          axios.get(get_url('typeahead', {
+          axios.get(getURL('typeahead', {
               q: e.target.value,
               show_podcasts: 1,
               safe_mode: 1,

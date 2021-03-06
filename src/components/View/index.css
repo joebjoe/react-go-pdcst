@@ -8,11 +8,14 @@ section.view > * {
 
 section.view > h2 {
   font-weight: bold;
-  text-align: center;
 }
 
 @media screen and (max-width: 799px) {
   section.view {
     padding: 0 16px 16px;
+  }
+
+  section.view > h2 {
+    text-align: center;
   }
 }

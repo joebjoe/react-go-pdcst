@@ -2,7 +2,8 @@ import { Component } from 'react';
 import List from '../../components/PodcastList';
 import View from '../../components/View';
 import './index.css';
-import { get_url, getFollowing } from '../../common';
+import { getURL } from '../../common';
+import { getFollowing } from '../../components/FollowBtn';
 import axios from 'axios';
 import Loader from 'react-loader-spinner';
 
@@ -35,7 +36,7 @@ class Following extends Component {
     let pids = getFollowing();
     if (pids.length) {
       this.timeoutID = this.handleTimeout(pids);
-      axios.get(get_url('following', { pids }, true)).then(({data, status}) => {
+      axios.get(getURL('following', { pids })).then(({data, status}) => {
         this.setPodcasts(data.podcasts);
       }).catch(err => console.log(err));
     }
@@ -47,7 +48,7 @@ class Following extends Component {
 
   render() {
     return (
-      <View className="following">
+      <View title="Following." className="following">
         {
           this.state.podcasts.length
             ? <List results={this.state.podcasts} />

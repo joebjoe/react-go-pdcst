@@ -1,7 +1,7 @@
 import './index.css';
 import { Component, createRef } from 'react';
 import { Link } from 'react-router-dom';
-import { UpArrow, DownArrowChevron, isInViewport } from '../../common';
+import { UpArrow, DownArrowChevron, isInViewport, strippedText } from '../../common';
 import ActionContainer from '../ActionContainer';
 
 class List extends Component {
@@ -103,7 +103,7 @@ class List extends Component {
                                         { result.title_original || result.title }
                                         <DownArrowChevron className="description-collapse" onClick={this.toggleActiveRef(i)}/>
                                     </h4>
-                                    <div dangerouslySetInnerHTML={{__html: result.description_original || result.description}}></div>
+                                    <div dangerouslySetInnerHTML={{__html: strippedText(result.description_original || result.description)}}></div>
                                 </div>
                             </li>
                         )
