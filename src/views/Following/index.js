@@ -48,7 +48,7 @@ class Following extends Component {
 
   render() {
     return (
-      <View title="Following." className="following">
+      <View title="Following." className={`following ${getFollowing().length ? '' : 'not-following'}`}>
         {
           this.state.podcasts.length
             ? <List results={this.state.podcasts} />
@@ -63,7 +63,7 @@ class Following extends Component {
                     width={150}
                     timeout={timeout_sec}
                   />
-              : <h2>You are not currently following any podcasts.</h2>
+              : <h2 class="not-following-msg">You are not currently following any podcasts.</h2>
         }
       </View>
   )}

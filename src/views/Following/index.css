@@ -6,3 +6,11 @@
     margin-top: 100px;
     text-align: center;
 }
+
+.view--following.not-following > .title {
+    display: none;
+}
+
+.view--following .not-following-msg {
+    text-align: center;
+}
