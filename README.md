@@ -1,6 +1,6 @@
 # PDSCT
 
-[http://pdcst-app.herokuapp.com]
+http://pdcst-app.herokuapp.com
 
 ## Goal
 
@@ -21,7 +21,7 @@ Full disclosure - _I've never worked in React before._ This was mostly the entir
 
 ## Limitations/Areas for Improvement
 
-As I said, this was really just an MVP, emphasis on the 'M'. There are defintely ways this app could be improved, but I felt like they were outside the scope of the project. <b>There's no internal data layer/user auth.</b> This would definitely be needed in order to present the same experience to users on any device so they could access and manage their followed podcasts. Right now, the 'Following.' page and its corresponding functionality throughout the app is fully functional. It was included in this project as an added feature, but it currently just uses local storage. In order to fully implement it in a production-worthy app The only thing that would need to change would be to instead point it to the database.
+As I said, this was really just an MVP, emphasis on the 'M'. There are defintely ways this app could be improved, but I felt like they were outside the scope of the project. **There's no internal data layer/user auth.** This would definitely be needed in order to present the same experience to users on any device so they could access and manage their followed podcasts. Right now, the 'Following.' page and its corresponding functionality throughout the app is fully functional. It was included in this project as an added feature, but it currently just uses local storage. In order to fully implement it in a production-worthy app The only thing that would need to change would be to instead point it to the database.
 
 ## If you've gotten this far...
 
