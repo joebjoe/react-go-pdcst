@@ -53,6 +53,7 @@ export default function() {
       </main>
       <footer>
         <small>View the {"</>"} on <a className="external" href="https://github.com/joebjoe/react-go-pdcst" target="_blank">Github</a></small>
+        <img className="powered-by" src="powered-by-listen.png" />
       </footer>
     </Router>
   )

@@ -63,6 +63,14 @@ footer {
   line-height: 30px;
   padding: 1em;
   text-align: center;
+  font-weight: 400;
+}
+
+footer > .powered-by {
+  display: block;
+  margin: 0 auto;
+  height: 12px;
+  right: 0;
 }
 
 header .nav-btn {
