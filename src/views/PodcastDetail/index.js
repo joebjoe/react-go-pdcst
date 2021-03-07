@@ -211,7 +211,7 @@ class Podcast extends Component {
 
     this.renderLoaderOrContent = podcast => {
       if (!podcast) {
-        return <Loader className="podcast-detail-loader" type="Audio" color="#3a3a3a" />
+        return <Loader className="podcast-detail-loader" type="Audio" color="#5f5f5f" />
       }
       return (
         <div className="podcast-detail-grid">
